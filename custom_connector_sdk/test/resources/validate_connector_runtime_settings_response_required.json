@@ -1,0 +1,6 @@
+{
+  "type": "ValidateConnectorRuntimeSettingsResponse",
+  "isSuccess": false,
+  "errorsByInputField": null,
+  "errorDetails": null
+}

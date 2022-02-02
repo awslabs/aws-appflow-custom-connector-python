@@ -1,0 +1,14 @@
+{
+  "type": "WriteDataResponse",
+  "isSuccess": false,
+  "errorDetails": {
+    "errorCode": "ClientError",
+    "errorMessage": "test error",
+    "retryAfterSeconds": 120
+  },
+  "writeRecordResults": {
+    "isSuccess": false,
+    "recordId": "testId",
+    "errorMessage": "write error"
+  }
+}

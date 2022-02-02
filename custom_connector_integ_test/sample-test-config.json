@@ -1,0 +1,89 @@
+{
+  "resourcePrefix": "string", //Optional: Name that will be added to all resources created by integ test.
+  "customConnectorConfigurations": [ // Required: List of connectors to created at the begining of the test run.
+    {
+      // Optional: This file is identical to the response provided by describe connector api.
+      // We use this file to validate the api response.
+      "validationFileName": "string",
+      "name":"string", // Required: This name can be used in the profile configuration.
+      "lambdaArn":"string" // Required: The arn of the lambda deployed in the users account.
+    }
+  ],
+  "customConnectorProfileConfigurations": [ // Required: List of profiles to created at the begining of the test run.
+    {
+      "connectorName":"string", // Optional: Name of connector created above. Otherwise the first connector in the list.
+      "name":"string", // Required: This name can referenced in other tests.
+      "profileProperties":{  // Optional: The connecor specific properties used when creating the profile.
+
+      },
+      "defaultApiVersion": "string", // Optional: An Api version that will be used with other test cases that use this profile.
+      "authenticationType":"OAUTH2|BASIC|API_KEY|CUSTOM|NO_AUTH", // Required: the auth type used by the profile
+      "oAuth2Properties": { // Optional: Required if authenticationType is OAUTH 2.
+
+        // OAuth properties needed by the connector
+        "oAuth2GrantType":"string",
+        "tokenUrl":"string"
+      },
+      "secretsManagerArn":"string" // Optional: Arn to the secrets manager secret where secrets are stored.
+    }
+  ],
+  "testBucketConfiguration": // Required: Bucket information that will be used when running tests.
+  {
+    "bucketName":"string", // Required: Bucket name in the users account.
+    "bucketPrefix":"string" // Required: Bucket Prefix.
+  },
+  "listConnectorEntitiesTestConfigurations": [ // Test for the list connector
+    {
+      // Optional: This file is identical to the response provided by list connector entities api.
+      // However, not all entities need to be provided. The test case will only evaluate equality between entities in validation file.
+      "validationFileName": "string",
+      "profileName":"string", // Optional: Profile used to run the test. Uses first profile otherwise.
+      "apiVersion": "string", // Optional: Api version used in request input. Uses default api version from profile otherwise.
+      "testName": "string", // Optional: Test name used to associate the test report with this test case.
+      "entitiesPath": "string" // Optional: Paramater used in list entities request.
+    }
+  ],
+  "describeConnectorEntityTestConfigurations":[
+    {
+      // Optional: This file is identical to the response provided by describe connector entity api.
+      // However, not all fields need to be provided. The test case will only evaluate equality between the fields in validation file.
+      "validationFileName": "string",
+      "profileName":"string", // Optional: Profile used to run the test. Uses first profile otherwise.
+      "apiVersion": "string", // Optional: Api version used in request input. Uses default api version from profile otherwise.
+      "testName": "string", // Optional: Test name used to associate the test report with this test case.
+      "entitiesName": "string" // Required: Entity in connector.
+    }
+  ],
+  "onDemandFromS3TestConfigurations": [
+    {
+      "testName":"string", // Optional: Test name used to associate the test report with this test case.
+      "profileName":"string", // Optional: Profile used to run the test. Uses first profile otherwise.
+      "idFieldNames": ["string"], // Optional: Input is required for non-insert write operation.
+      "flowName": "string", // Required: Name of flow.
+      "apiVersion": "string", // Optional: Api version used in request input. Uses default api version from profile otherwise.
+      "entityName":"string", // Required: Entity name that we will be creating in the connector.
+      "sourceDataFile":"string", // Required: Entity name that we will be creating in the connector.
+      "dataGeneratorClassName":"string", // Required: Entity name that we will be creating in the connector.
+      "destinationRuntimeProperties": { // Optional: Connector Specific Properties.
+        "key": "value"
+      },
+      "flowTimeout":"Integer" //Maximum amount of time to run the flow before timing out.
+    }
+  ],
+  "onDemandToS3TestConfigurations": [
+    {
+      "testName":"string", // Optional: Test name used to associate the test report with this test case.
+      "profileName":"string", // Optional: Profile used to run the test. Uses first profile otherwise.
+      "flowName": "string", // Required: Name of flow.
+      "entityName":"string", // Required: Entity name that we will be creating in the connector.
+      "apiVersion": "string", // Optional: Api version used in request input. Uses default api version from profile otherwise.
+      "query":"string", // Optional: Filter expression used with flow to test filter capability
+      "flowTimeout":"number" // Maximum amount of time to run the flow before timing out.
+      "entityFields":["LastActivityDate"], // Required: Fields that need to be retrievedr
+      "outputSize":"number", // Optional: Output size of the flow. Used to validate that correct data was retrieved.
+      "sourceRuntimeProperties": { // Optional: Connector Specific Properties.
+        "key": "value"
+      }
+    }
+  ]
+}

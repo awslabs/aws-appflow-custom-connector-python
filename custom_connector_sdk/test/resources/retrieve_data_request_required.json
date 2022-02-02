@@ -1,0 +1,14 @@
+{
+  "type": "RetrieveDataRequest",
+  "entityIdentifier": "identifier",
+  "connectorContext": {
+    "connectorRuntimeSettings": {
+      "instanceUrl": "https://amazon141-dev-ed.my.salesforce.com"
+    },
+    "credentials": {
+      "secretArn": "TestSecretArn",
+      "authenticationType": "OAuth2"
+    },
+    "apiVersion": "v47.0"
+  }
+}

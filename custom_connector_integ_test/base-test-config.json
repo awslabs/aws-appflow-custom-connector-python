@@ -1,0 +1,14 @@
+{
+  "resourcePrefix": "string",
+  "customConnectorConfigurations": [],
+  "customConnectorProfileConfigurations": [],
+  "testBucketConfiguration":
+  {
+    "bucketName":"string",
+    "bucketPrefix":"string"
+  },
+  "listConnectorEntitiesTestConfigurations": [],
+  "describeConnectorEntityTestConfigurations":[],
+  "onDemandFromS3TestConfigurations": [],
+  "onDemandToS3TestConfigurations": []
+}

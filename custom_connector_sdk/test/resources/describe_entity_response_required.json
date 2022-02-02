@@ -1,0 +1,7 @@
+{
+  "type": "DescribeEntityResponse",
+  "isSuccess": true,
+  "errorDetails": null,
+  "entityDefinition": null,
+  "cacheControl": null
+}

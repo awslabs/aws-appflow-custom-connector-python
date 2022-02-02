@@ -1,0 +1,8 @@
+{
+  "type": "ListEntitiesResponse",
+  "isSuccess": true,
+  "errorDetails": null,
+  "entities": null,
+  "nextToken": null,
+  "cacheControl": null
+}

@@ -1,0 +1,6 @@
+{
+  "type": "WriteDataResponse",
+  "isSuccess": false,
+  "errorDetails": null,
+  "writeRecordResults": null
+}

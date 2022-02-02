@@ -1,0 +1,18 @@
+{
+  "type": "QueryDataRequest",
+  "entityIdentifier": "identifier",
+  "connectorContext": {
+    "credentials": {
+      "oAuth2Credentials": {
+        "accessToken": "testToken"
+      }
+    },
+    "apiVersion": "v47.0"
+  },
+  "selectedFieldNames": [
+    "field_a",
+    "field_b",
+    "field_c"
+  ],
+  "filter_expression": "SELECT * FROM table"
+}

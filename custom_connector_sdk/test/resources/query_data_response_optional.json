@@ -1,0 +1,14 @@
+{
+  "type": "QueryDataResponse",
+  "isSuccess": false,
+  "errorDetails": {
+    "errorCode": "ClientError",
+    "errorMessage": "test error",
+    "retryAfterSeconds": 120
+  },
+  "nextToken": "testToken",
+  "records": [
+    "recordA",
+    "recordB"
+  ]
+}

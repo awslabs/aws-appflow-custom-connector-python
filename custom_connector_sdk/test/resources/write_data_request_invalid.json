@@ -1,0 +1,10 @@
+{
+  "type": "WriteDataRequest",
+  "entityIdentifier": "identifier",
+  "connectorContext": {
+    "connectorRuntimeSettings": {
+      "instanceUrl": "https://amazon141-dev-ed.my.salesforce.com"
+    },
+    "apiVersion": "v47.0"
+  }
+}

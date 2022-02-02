@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Template to deploy the lambda connector in your account.
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: custom_connector_example.handlers.lambda_handler.salesforce_lambda_handler
+      Runtime: python3.8
+      CodeUri: ../.
+      Description: "Example for writing and deploying your Appflow connector"
+      Timeout: 30
+      MemorySize: 256
+      Policies:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Action: 'secretsmanager:GetSecretValue'
+          Resource: !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:appflow!${AWS::AccountId}-<you-connector-label>-*'
+      Layers:
+        - !Ref Dependencies
+  Dependencies:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: custom-connector-dependency-lib
+      Description: Dependencies for the sample custom connector
+      ContentUri: ../../package/.
+      CompatibleRuntimes:
+        - python3.8
+  PolicyPermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      FunctionName: !GetAtt Function.Arn
+      Action: lambda:InvokeFunction
+      Principal: 'appflow.amazonaws.com'
+      SourceAccount: !Ref 'AWS::AccountId'
+      SourceArn: !Sub 'arn:aws:appflow:${AWS::Region}:${AWS::AccountId}:*'

@@ -1,0 +1,15 @@
+{
+  "type": "DescribeEntityRequest",
+  "connectorContext": {
+    "credentials": {
+      "basicAuthCredentials": {
+        "userName": "testUsername",
+        "password": "testPassword"
+      },
+      "apiKeyCredentials": null,
+      "oAuth2Credentials": null,
+      "customAuthCredentials": null
+    },
+    "apiVersion": "v47.0"
+  }
+}

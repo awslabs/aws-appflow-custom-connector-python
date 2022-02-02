@@ -1,0 +1,7 @@
+{
+  "type": "QueryDataResponse",
+  "isSuccess": true,
+  "errorDetails": null,
+  "nextToken": null,
+  "records": null
+}

@@ -1,0 +1,54 @@
+{
+  "customConnectorConfigurations":[
+    {
+      "name":"connector1",
+      "lambdaArn":"arn:aws:lambda:us-west-2:***********:function:custom-connector-Function-FpcRtBXSqTWy"
+    }
+  ],
+  "customConnectorProfileConfigurations":[
+    {
+      "connectorName":"connector1",
+      "name":"profile1",
+      "profileProperties":{
+        "api_version":"v51.0",
+        "instanceUrl":"https://***********.my.salesforce.com"
+      },
+      "defaultApiVersion": "v51.0",
+      "authenticationType":"OAUTH2",
+      "oAuth2Properties":{
+        "oAuth2GrantType":"CLIENT_CREDENTIALS",
+        "tokenUrl":"https://login.salesforce.com/services/oauth2/token"
+      },
+      "secretsManagerArn":"arn:aws:secretsmanager:us-west-2:***********:secret:custom-connector-qrSqOc"
+    }
+  ],
+  "testBucketConfiguration":
+  {
+    "bucketName":"cvs-beta",
+    "bucketPrefix":""
+  },
+  "listConnectorEntitiesTestConfigurations":[
+
+  ],
+  "describeConnectorEntityTestConfigurations":[
+
+  ],
+  "onDemandFromS3TestConfigurations":[
+    {
+      "flowName": "flow4",
+      "entityName":"Account",
+      "writeOperationType": "INSERT",
+      "dataGeneratorClassName":"custom_connector_example.integ_test.sales_generator.SalesForceTestData",
+      "destinationRuntimeProperties": {}
+    },
+    {
+      "flowName": "flow2",
+      "entityName":"Account",
+      "writeOperationType": "INSERT",
+      "sourceDataFile":"custom_connector_example/salesforce-example-test-files/salesforce-insert-file.csv",
+      "destinationRuntimeProperties": {}
+    }
+  ],
+  "onDemandToS3TestConfigurations":[
+  ]
+}

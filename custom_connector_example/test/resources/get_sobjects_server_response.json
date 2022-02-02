@@ -1,0 +1,10 @@
+{
+  "sobjects": [
+    {
+      "label": "testLabel",
+      "childRelationships": [
+        "relationship_a"
+      ]
+    }
+  ]
+}

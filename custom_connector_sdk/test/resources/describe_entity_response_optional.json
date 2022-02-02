@@ -1,0 +1,14 @@
+{
+  "type": "DescribeEntityResponse",
+  "isSuccess": true,
+  "errorDetails": {
+    "errorCode": "ServerError",
+    "errorMessage": "this is an error",
+    "retryAfterSeconds": 20
+  },
+  "entityDefinition": null,
+  "cacheControl": {
+    "timeToLive": 60,
+    "timeToLiveUnit": "SECONDS"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "type": "RetrieveDataRequest",
+  "entityIdentifier": "identifier",
+  "connectorContext": {
+    "connectorRuntimeSettings": {
+      "instanceUrl": "test.amazon.com"
+    },
+    "credentials": {
+      "secretArn": "TestSecretArn",
+      "authenticationType": "OAuth2"
+    },
+    "entityDefinition": {
+      "entity": {
+        "entityIdentifier": "testIdentifier",
+        "hasNestedEntities": true,
+        "label": "testLabel",
+        "description": "testDescription"
+      },
+      "fields": [
+        {
+          "fieldName": "testField",
+          "dataType": "String",
+          "label": "testFieldLabel",
+          "description": "testFieldDescription",
+          "isPrimaryKey": true,
+          "defaultValue": "defaultValue",
+          "isDeprecated": false,
+          "constraints": {
+            "allowedLengthRange": {
+              "minRange": 0,
+              "maxRange": 30
+            },
+            "allowedValues": [
+              "defaultValue",
+              "anotherValue",
+              "someValue"
+            ],
+            "allowedValuesRegexPattern": "*Value"
+          },
+          "readProperties": {
+            "isRetrievable": true,
+            "isNullable": true,
+            "isQueryable": true,
+            "isTimestampFieldForIncrementalQueries": false
+          },
+          "writeProperties": {
+            "isCreatable": true,
+            "isUpdatable": true,
+            "isNullable": true,
+            "isUpsertable": true,
+            "supportedWriteOperations": [
+              "INSERT",
+              "UPDATE",
+              "UPSERT"
+            ]
+          },
+          "customProperties": {
+            "customProperty": "customPropertyValue"
+          }
+        }
+      ],
+      "customProperties": {
+        "customProperty": "customPropertyValue"
+      }
+    },
+    "apiVersion": "v47.0"
+  },
+  "selectedFieldNames": ["fieldA", "fieldB"],
+  "idFieldName": "idField",
+  "ids": ["idA", "idB"]
+}

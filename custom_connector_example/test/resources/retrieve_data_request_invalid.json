@@ -1,0 +1,17 @@
+{
+  "type": "RetrieveDataRequest",
+  "entityIdentifier": "identifier",
+  "connectorContext": {
+    "connectorRuntimeSettings": {
+      "instanceUrl": "https://salesforce.amazon.com"
+    },
+    "credentials": {
+    },
+    "apiVersion": "v47.0"
+  },
+  "selectedFieldNames": [
+    "field_a",
+    "field_b",
+    "field_c"
+  ]
+}

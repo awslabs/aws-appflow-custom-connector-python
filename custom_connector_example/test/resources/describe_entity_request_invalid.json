@@ -1,0 +1,12 @@
+{
+  "type": "DescribeEntityRequest",
+  "entityIdentifier": "testIdentifier",
+  "connectorContext": {
+    "credentials": {
+      "oAuth2Credentials": {
+        "accessToken": "testToken"
+      }
+    },
+    "apiVersion": "v47.0"
+  }
+}

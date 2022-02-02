@@ -1,0 +1,13 @@
+{
+  "type": "RetrieveDataResponse",
+  "isSuccess": false,
+  "errorDetails": {
+    "errorCode": "ClientError",
+    "errorMessage": "test error",
+    "retryAfterSeconds": 120
+  },
+  "records": [
+    "recordA",
+    "recordB"
+  ]
+}

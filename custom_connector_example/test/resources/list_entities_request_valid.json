@@ -1,0 +1,16 @@
+{
+  "type": "ListEntitiesRequest",
+  "maxResult": null,
+  "connectorContext": {
+    "connectorRuntimeSettings": {
+      "instanceUrl": "http://salesforce.amazon.com"
+    },
+    "credentials": {
+      "oAuth2Credentials": {
+        "accessToken": "testToken"
+      }
+    },
+    "entitiesPath": "path/to/entities",
+    "apiVersion": "v47.0"
+  }
+}

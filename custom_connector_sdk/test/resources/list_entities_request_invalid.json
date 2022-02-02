@@ -1,0 +1,74 @@
+{
+  "type": "ListEntitiesRequest",
+  "entitiesPath": "https://amazon141-dev-ed.my.salesforce.com",
+  "maxResult": 500,
+  "nextToken": "2",
+  "connectorContext": {
+    "connectorRuntimeSettings": {
+      "instanceUrl": "https://amazon141-dev-ed.my.salesforce.com"
+    },
+    "credentials": {
+      "basicAuthCredentials": null,
+      "apiKeyCredentials": null,
+      "oAuth2Credentials": {
+        "accessToken": "accessTokenValue",
+        "refreshToken": "refreshTokenValue"
+      },
+      "customAuthCredentials": null
+    },
+    "entityDefinition": {
+      "entity": {
+        "entityIdentifier": "testIdentifier",
+        "hasNestedEntities": true,
+        "label": "testLabel",
+        "description": "testDescription"
+      },
+      "fields": [
+        {
+          "dataType": "String",
+          "label": "testFieldLabel",
+          "description": "testFieldDescription",
+          "isPrimaryKey": true,
+          "defaultValue": "defaultValue",
+          "isDeprecated": false,
+          "constraints": {
+            "allowedLengthRange": {
+              "minRange": 0,
+              "maxRange": 30
+            },
+            "allowedValues": [
+              "defaultValue",
+              "anotherValue",
+              "someValue"
+            ],
+            "allowedValuesRegexPattern": "*Value"
+          },
+          "readProperties": {
+            "isRetrievable": true,
+            "isNullable": true,
+            "isQueryable": true,
+            "isTimestampFieldForIncrementalQueries": false
+          },
+          "writeProperties": {
+            "isCreatable": true,
+            "isUpdatable": true,
+            "isNullable": true,
+            "isUpsertable": true,
+            "supportedWriteOperations": [
+              "INSERT",
+              "UPDATE",
+              "UPSERT"
+            ]
+          },
+          "customProperties": {
+            "customProperty": "customPropertyValue"
+          }
+        }
+      ],
+      "customProperties": {
+        "customProperty": "customPropertyValue"
+      }
+    },
+    "apiVersion": "v47.0"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "customConnectorConfigurations":[
+    {
+      "name":"connector1",
+      "lambdaArn":"arn:aws:lambda:us-west-2:*********:function:custom-connector-Function-FpcRtBXSqTWy"
+    },
+    {
+      "name":"connector2",
+      "lambdaArn":"arn:aws:lambda:us-west-2:*********:function:custom-connector-Function-FpcRtBXSqTWy"
+    }
+  ],
+  "customConnectorProfileConfigurations":[
+    {
+      "connectorName":"connector1",
+      "name":"profile1",
+      "profileProperties":{
+        "api_version":"v51.0",
+        "instanceUrl":"https://*********.my.salesforce.com"
+      },
+      "defaultApiVersion": "v51.0",
+      "authenticationType":"OAUTH2",
+      "oAuth2Properties":{
+        "oAuth2GrantType":"CLIENT_CREDENTIALS",
+        "tokenUrl":"https://login.salesforce.com/services/oauth2/token"
+      },
+      "secretsManagerArn":"arn:aws:secretsmanager:us-west-2:*********:secret:custom-connector-qrSqOc"
+    },
+    {
+      "name":"profile2",
+      "profileProperties":{
+        "api_version":"v51.0",
+        "instanceUrl":"https://*********.my.salesforce.com"
+      },
+      "defaultApiVersion": "v51.0",
+      "authenticationType":"OAUTH2",
+      "oAuth2Properties":{
+        "oAuth2GrantType":"CLIENT_CREDENTIALS",
+        "tokenUrl":"https://login.salesforce.com/services/oauth2/token"
+      },
+      "secretsManagerArn":"arn:aws:secretsmanager:us-west-2:*********:secret:custom-connector-qrSqOc"
+    },
+    {
+      "connectorName":"connector2",
+      "name":"profile3",
+      "profileProperties":{
+        "api_version":"v51.0",
+        "instanceUrl":"https://*********.my.salesforce.com"
+      },
+      "defaultApiVersion": "v51.0",
+      "authenticationType":"OAUTH2",
+      "oAuth2Properties":{
+        "oAuth2GrantType":"CLIENT_CREDENTIALS",
+        "tokenUrl":"https://login.salesforce.com/services/oauth2/token"
+      },
+      "secretsManagerArn":"arn:aws:secretsmanager:us-west-2:*********:secret:custom-connector-qrSqOc"
+    }
+  ],
+  "testBucketConfiguration":
+  {
+    "bucketName":"cvs-beta",
+    "bucketPrefix":""
+  },
+  "listConnectorEntitiesTestConfigurations":[
+    {
+      "profileName":"profile1",
+      "apiVersion": "v51.0"
+    },
+    {
+      "profileName":"profile2"
+    },
+    {
+
+    }
+  ],
+  "describeConnectorEntityTestConfigurations":[
+    {
+      "entityName":"Account",
+      "profileName": "profile3",
+      "testName": "",
+      "apiVersion": "v52.0"
+    },
+    {
+      "entityName":"Account"
+    },
+    {
+      "entityName":"Account",
+      "profileName": "profile2",
+      "testName": ""
+    }
+  ],
+  "onDemandFromS3TestConfigurations":[
+  ],
+  "onDemandToS3TestConfigurations":[
+    {
+      "testName":"",
+      "flowName": "flow1",
+      "entityName":"Account",
+      "flowTimeout":100,
+      "entityFields":["LastActivityDate"],
+      "outputSize":443,
+      "sourceRuntimeProperties": {}
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "runtimeSettings": {
+    "connectorProfile": {
+      "instanceUrl": "https://amazon-1de-dev-ed.my.salesforce.com",
+      "credentialsArn": "CredentialsArn",
+      "apiVersion": "v51.0"
+    }
+  },
+  "credentials": {
+    "secretArn": "",
+    "authenticationType": "OAuth2"
+  },
+  "testEntityIdentifier": "Account",
+  "retrieveRecordConfigurations": [
+    {
+      "entityIdentifier": "Account",
+      "selectedFieldNames": [
+        "Name",
+        "AccountNumber"
+      ],
+      "idFieldName": "AccountNumber",
+      "ids": [
+        "12345"
+      ]
+    }
+  ],
+  "writeRecordConfigurations": [
+    {
+      "entityIdentifier": "Account",
+      "operation": "INSERT",
+      "idFieldNames": [],
+      "records": [
+        "{\"Name\": \"TestAccount\"}"
+      ],
+      "allOrNone": false
+    },
+    {
+      "entityIdentifier": "Account",
+      "operation": "UPDATE",
+      "idFieldNames": ["Id"],
+      "records": [
+        "{\"Name\": \"NewNameUpdateTest\", \"Id\": \"0015e00000USsUgAAL\"}"
+      ],
+      "allOrNone": false
+    },
+    {
+      "entityIdentifier": "Account",
+      "operation": "UPSERT",
+      "idFieldNames": ["ExternalId__c"],
+      "records": [
+        "{\"Name\": \"UpsertAccount\", \"ExternalId__c\": \"Identifier123\"}"
+      ],
+      "allOrNone": false
+    }
+  ],
+  "queryRecordConfigurations": [
+    {
+      "entityIdentifier": "Account",
+      "selectedFieldNames": [
+        "Name",
+        "AccountNumber"
+      ],
+      "filterExpression": "Name contains \"Test\""
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "ListEntitiesResponse",
+  "isSuccess": true,
+  "errorDetails": {
+    "errorCode": "ServerError",
+    "errorMessage": "this is an error",
+    "retryAfterSeconds": 20
+  },
+  "entities": null,
+  "nextToken": "2",
+  "cacheControl": {
+    "timeToLive": 60,
+    "timeToLiveUnit": "SECONDS"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "connectorEntityMap": {
+    "Objects": [
+      {
+        "name": "AIApplication",
+        "label": "AI Application",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AIApplicationConfig",
+        "label": "AI Application config",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AIInsightAction",
+        "label": "AI Insight Action",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AIInsightFeedback",
+        "label": "AI Insight Feedback",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AIInsightReason",
+        "label": "AI Insight Reason",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AIInsightValue",
+        "label": "AI Insight Value",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AIPredictionEvent",
+        "label": "AI Prediction Event",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AIRecordInsight",
+        "label": "AI Record Insight",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AcceptedEventRelation",
+        "label": "Accepted Event Relation",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "Account",
+        "label": "Account",
+        "hasNestedEntities": false
+      },
+      {
+        "name": "AccountChangeEvent",
+        "label": "Account Change Event",
+        "hasNestedEntities": false
+      }
+    ]
+  }
+}

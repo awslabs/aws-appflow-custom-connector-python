@@ -1,0 +1,34 @@
+{
+  "type": "QueryDataRequest",
+  "entityIdentifier": "identifier",
+  "connectorContext": {
+    "connectorRuntimeSettings": {
+      "instanceUrl": "https://salesforce.amazon.com"
+    },
+    "credentials": {
+      "oAuth2Credentials": {
+        "accessToken": "testToken"
+      }
+    },
+    "apiVersion": "v47.0",
+    "entityDefinition": {
+      "entity": {
+        "entityIdentifier": "identifier",
+        "hasNestedEntities": false,
+        "label": "testLabel",
+        "description": "testDescription"
+      },
+      "fields": [
+        {
+          "fieldName": "testField",
+          "dataType": "String",
+          "dataTypeLabel": "String"
+        }
+      ]
+    }
+  },
+  "selectedFieldNames": [
+    "testField"
+  ],
+  "filterExpression": "testField = 'abc'"
+}

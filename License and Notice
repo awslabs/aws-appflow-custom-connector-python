@@ -1,0 +1,20 @@
+Amazon AppFlow Custom Connector Software Developer Kit License Agreement 
+Copyright 2022 Amazon Web Services, Inc. or its affiliates. All Rights Reserved.
+
+By installing or using this software development kit ("Software"), you agree to 
+the AWS Customer Agreement (https://aws.amazon.com/agreement) or other agreement 
+with Amazon Web Services, Inc. ("AWS") governing your use of services provided by 
+AWS, including the AWS Service Terms (https://aws.amazon.com/service-terms). 
+The Software is AWS Content, and you may install and use the Software solely for 
+the purpose of use with Amazon AppFlow in accordance with the Documentation.
+
+Certain components of the Software contain third party software programs which 
+are governed by separate licenses, including but not limited to open source 
+software licenses, identified in the included "THIRD PARTY ATTRIBUTIONS" file. 
+Your rights and obligations with respect to these components are defined by the 
+applicable software license, and nothing in this agreement will restrict, limit, 
+or otherwise affect your rights or obligations under such software licenses. 
+
+  
+To learn more about the Amazon AppFlow Custom Connector Software Developer Kit see:
+https://docs.aws.amazon.com/appflow/

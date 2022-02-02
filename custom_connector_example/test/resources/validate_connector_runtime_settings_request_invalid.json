@@ -1,0 +1,7 @@
+{
+  "type": "ValidateConnectorRuntimeSettingsRequest",
+  "scope": "DESTINATION",
+  "connectorRuntimeSettings": {
+    "testSettingKey": "testSettingValue"
+  }
+}

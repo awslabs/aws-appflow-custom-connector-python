@@ -1,0 +1,56 @@
+{
+  "type": "DescribeConnectorConfigurationResponse",
+  "connectorOwner": "owner",
+  "connectorName": "name",
+  "connectorVersion": "v1.0",
+  "connectorModes":  ["SOURCE"],
+  "authenticationConfig": {
+    "isBasicAuthSupported": true,
+    "isApiKeyAuthSupported": true,
+    "isOAuth2Supported": false,
+    "isCustomAuthSupported": false,
+    "oAuth2Defaults": {
+      "loginURL": ["a"],
+      "authURL": ["b"],
+      "refreshURL": ["c"],
+      "oAuth2GrantTypesSupported": ["CLIENT_CREDENTIALS"],
+      "oAuthScopes": ["e"],
+      "redirectURL": ["f"]
+    },
+    "customAuthConfig": [
+      {
+        "authenticationType": "testType",
+        "authParameters": [
+          {
+            "key": "testKey",
+            "required": true,
+            "label": "testLabel",
+            "description": "testDescription",
+            "sensitiveField": true,
+            "connectorSuppliedValues": [
+              "testValue"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "supportedApiVersions": ["v1.0", "v1.1"],
+  "isSuccess": true,
+  "connectorRuntimeSetting": [
+    {
+      "key": "key",
+      "dataType": "String",
+      "required": true,
+      "label": "label",
+      "description": "description",
+      "scope": "SOURCE",
+      "connectorSuppliedValueOptions": null
+    }
+  ],
+  "logoURL": "test.amazon.com",
+  "errorDetails": null,
+  "operatorsSupported": ["ADDITION", "CONTAINS"],
+  "triggerFrequenciesSupported": ["Once", "Daily"],
+  "supportedWriteOperations": ["DELETE", "INSERT"]
+}

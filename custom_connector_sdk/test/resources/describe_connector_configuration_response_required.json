@@ -1,0 +1,57 @@
+{
+  "type": "DescribeConnectorConfigurationResponse",
+  "connectorOwner": "owner",
+  "connectorName": "name",
+  "connectorVersion": "v1.0",
+  "connectorModes":  ["SOURCE"],
+  "authenticationConfig": {
+    "isBasicAuthSupported": true,
+    "isApiKeyAuthSupported": null,
+    "isOAuth2Supported": null,
+    "isCustomAuthSupported": null,
+    "oAuth2Defaults": null,
+    "customAuthConfig": null
+  },
+  "supportedApiVersions": ["v1.0", "v1.1"],
+  "isSuccess": true,
+  "connectorRuntimeSetting": null,
+  "logoURL": null,
+  "errorDetails": null,
+  "operatorsSupported": [
+    "PROJECTION",
+    "LESS_THAN",
+    "GREATER_THAN",
+    "BETWEEN",
+    "LESS_THAN_OR_EQUAL_TO",
+    "GREATER_THAN_OR_EQUAL_TO",
+    "EQUAL_TO",
+    "CONTAINS",
+    "NOT_EQUAL_TO",
+    "ADDITION",
+    "SUBTRACTION",
+    "MULTIPLICATION",
+    "DIVISION",
+    "MASK_ALL",
+    "MASK_FIRST_N",
+    "MASK_LAST_N",
+    "VALIDATE_NON_NULL",
+    "VALIDATE_NON_ZERO",
+    "VALIDATE_NON_NEGATIVE",
+    "VALIDATE_NUMERIC",
+    "NO_OP"
+  ],
+  "triggerFrequenciesSupported": [
+    "Minutely",
+    "Hourly",
+    "Daily",
+    "Weekly",
+    "Monthly",
+    "Once"
+  ],
+  "supportedWriteOperations": [
+    "INSERT",
+    "UPDATE",
+    "UPSERT",
+    "DELETE"
+  ]
+}

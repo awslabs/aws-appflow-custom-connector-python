@@ -1,0 +1,11 @@
+{
+  "type": "ListEntitiesRequest",
+  "maxResult": null,
+  "connectorContext": {
+    "credentials": {
+      "secretArn": "TestSecretArn",
+      "authenticationType": "BasicAuth"
+    },
+    "apiVersion": "v47.0"
+  }
+}

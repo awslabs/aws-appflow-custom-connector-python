@@ -1,0 +1,28 @@
+{
+  "fields": [
+    {
+      "type": "string",
+      "name": "testField",
+      "unique": true,
+      "label": "testLabel",
+      "filterable": true,
+      "idLookup": "testIdLookup",
+      "createable": true,
+      "updateable": false,
+      "nillable": true,
+      "defaultedOnCreate": false
+    },
+    {
+      "type": "struct",
+      "name": "testField2",
+      "unique": true,
+      "label": "testLabel",
+      "filterable": true,
+      "externalId": "testId",
+      "createable": true,
+      "updateable": true,
+      "nillable": false,
+      "defaultedOnCreate": false
+    }
+  ]
+}

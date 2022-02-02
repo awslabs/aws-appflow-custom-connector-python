@@ -1,0 +1,12 @@
+{
+  "type": "ValidateConnectorRuntimeSettingsResponse",
+  "isSuccess": true,
+  "errorsByInputField": {
+    "field": "error"
+  },
+  "errorDetails": {
+    "errorCode": "ServerError",
+    "errorMessage": "this is an error",
+    "retryAfterSeconds": 20
+  }
+}

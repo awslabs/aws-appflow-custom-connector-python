@@ -1,0 +1,20 @@
+{
+  "type": "WriteDataRequest",
+  "entityIdentifier": "identifier",
+  "connectorContext": {
+    "connectorRuntimeSettings": {
+    },
+    "credentials": {
+      "oAuth2Credentials": {
+        "accessToken": "testToken"
+      }
+    },
+    "apiVersion": "v47.0"
+  },
+  "operation": "INSERT",
+  "records": [
+    "record_a",
+    "record_b",
+    "record_c"
+  ]
+}
