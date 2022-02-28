@@ -1,5 +1,5 @@
 # Integration Test FrameWork
-This document explains how to run the integration tests provided by Appflow for a custom connector.
+This document explains how to run the integration tests provided by AppFlow for a custom connector.
 
 ## Prerequisites:
 
@@ -14,7 +14,7 @@ The framework provides the following test cases.
 3. Running a flow from s3 -> connector
 4. Running a flow from the connector -> s3
 
-Additionally, we provide a test class that cleans up all Appflow resources created by the integration tests.
+Additionally, we provide a test class that cleans up all AppFlow resources created by the integration tests.
 This test case cleans up resources based on the prefix "Integ_{ResourceType}" e.g. Integ_Profile. 
 You can also provide a prefix in the test configuration which will be appended to all resources.
 If you are running multiple test cases in the same aws account, be sure to use this prefix. Otherwise,
@@ -69,7 +69,7 @@ A base configuration file can be found in the current directory.
 ###Resources 
 The configuration file requires several aws resources to already exist in your account. The purpose of these
 resources is described in the sample-test-config.json file.
-1. A S3 bucket with Appflow bucket policy.
+1. A S3 bucket with AppFlow bucket policy.
 2. A Secrets Manager secret for each set of credentials.
 3. A Lambda custom connector.
 
@@ -114,5 +114,5 @@ Tests in unittest run in alphabetical order. Be sure to name your test so that i
 registered and before the profile is created.
 
 
-This ensures that the Appflow test cases always run, run after the connectors and connector profiles are created, 
+This ensures that the AppFlow test cases always run, run after the connectors and connector profiles are created, 
 and run before all resources are deleted.

@@ -281,7 +281,7 @@ The Amazon AppFlow Custom Connector SDK is available for both Java and Python on
 
 #### For Java SDK Users:
 
-Once you have the jar, create the Amazon Appflow client instance and invoke the AppFlow APIs.
+Once you have the jar, create the Amazon AppFlow client instance and invoke the AppFlow APIs.
 
 ```
 AmazonAppflow appflowClient = AmazonAppflowClientBuilder.standard()
