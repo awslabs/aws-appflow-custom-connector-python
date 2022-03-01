@@ -80,7 +80,7 @@ class ErrorCode(Enum):
     # other specific error codes.
     UnknownError = auto()
 
-    # Specifies that the connector is failed to write all the records to the Application.
+    # Specifies that the connector encountered failure, for some records, while writing to the application.
     PartialWriteFailure = auto()
 
 class ErrorDetails:
@@ -305,7 +305,8 @@ class WriteDataResponse:
     def __init__(self, is_success: bool,
                  error_details: ErrorDetails = None,
                  write_record_results: [WriteRecordResult] = None):
-        # Specifies if the operation is successful or not. In case of partial failures, this should be set as false.
+        # Specifies if the operation is successful or not. In case of partial failure,
+        # this flag should be set to false and the error code should be set to PartialWriteFailure.
         self.is_success = is_success
 
         # Error details if the Operation is unsuccessful.
