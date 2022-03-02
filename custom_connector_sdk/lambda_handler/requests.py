@@ -206,7 +206,9 @@ class WriteDataRequest:
         # List of JSON serialized string of the entity record as per the entity metadata.
         self.records = records
 
-        # Write all or none if any of the entity records error out.
+        # Specifies that the WRITE operation must fail immediately after encountering the first instance of failure
+        # when writing a batch of records to the Application. Alternatively, if the application supports the all_or_none
+        # behavior the connector can pass on the flag to the application.
         self.all_or_none = all_or_none
 
     @classmethod

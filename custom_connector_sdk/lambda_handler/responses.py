@@ -47,39 +47,41 @@ ALL_WRITE_OPERATION_TYPES = [op for op in WriteOperationType]
 ALL_TRIGGER_TYPES = [op for op in TriggerType]
 
 class ErrorCode(Enum):
-    """Enum of error codes."""
-    # Specifies error is due to client.
-    ClientError = auto()
-
-    # Specifies error is due to application.
-    ServerError = auto()
-
-    # Invalid arguments provided as input.
+    """Collection of all normalized error codes for returning errors back to AppFlow."""
+    # Invalid arguments provided as input/HttpStatus 400/413 from application/Bad Request exception from Application.
+    # For example QueryURI too large, write request payload too large etc.
     InvalidArgument = auto()
 
-    # Credentials were rejected by the underlying application.
+    # Credentials were rejected by the underlying application/HttpStatus 401 from Application.
     InvalidCredentials = auto()
 
-    # Resource access denied by the underlying application.
+    # Resource access denied by the underlying application/HttpStatus 403 from Application.
     AccessDenied = auto()
 
-    # The request to the underlying application timed out.
+    # The request to the underlying application timed out/HttpStatus 408 from Application/
+    # HttpClient timeout while sending request.
     RequestTimeout = auto()
 
-    # Payload size is too large.
-    PayloadTooLarge = auto()
-
-    # Request got rejected by the underlying application due to rate limit violation.
+    # Request got rejected by the underlying application due to rate limit violation/HttpStatus 429 from Application.
     RateLimitExceeded = auto()
 
-    # Not able to serve the request due to an internal error.
-    InternalServerError = auto()
-
-    # Server is not available to serve the requests at the moment.
+    # Application is not available to serve the requests at the moment/HttpStatus 503 from Application.
     ServiceUnavailable = auto()
 
-    # Unknown Error from the application.
+    # Specifies error is due to client or HttpStatus 4XX from Application.
+    # Use specific error codes if present.
+    ClientError = auto()
+
+    # Specifies error is due to Application or HttpStatus 5XX from Application.
+    # Use specific error codes if present.
+    ServerError = auto()
+
+    # Unknown Error from the Application. Use this ErrorCode only when you are not able to use the
+    # other specific error codes.
     UnknownError = auto()
+
+    # Specifies that the connector encountered failure, for some records, while writing to the application.
+    PartialWriteFailure = auto()
 
 class ErrorDetails:
     """Represents the error details."""
@@ -303,7 +305,8 @@ class WriteDataResponse:
     def __init__(self, is_success: bool,
                  error_details: ErrorDetails = None,
                  write_record_results: [WriteRecordResult] = None):
-        # Specifies if the operation is successful or not.
+        # Specifies if the operation is successful or not. In case of partial failure,
+        # this flag should be set to false and the error code should be set to PartialWriteFailure.
         self.is_success = is_success
 
         # Error details if the Operation is unsuccessful.

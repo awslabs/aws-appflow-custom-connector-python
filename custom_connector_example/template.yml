@@ -8,7 +8,7 @@ Resources:
       Handler: custom_connector_example.handlers.lambda_handler.salesforce_lambda_handler
       Runtime: python3.8
       CodeUri: ../.
-      Description: "Example for writing and deploying your Appflow connector"
+      Description: "Example for writing and deploying your AppFlow connector"
       Timeout: 30
       MemorySize: 256
       Policies:
