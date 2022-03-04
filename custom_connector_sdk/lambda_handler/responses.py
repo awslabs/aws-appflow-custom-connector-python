@@ -83,6 +83,9 @@ class ErrorCode(Enum):
     # Specifies that the connector encountered failure, for some records, while writing to the application.
     PartialWriteFailure = auto()
 
+    # Specifies that the connector is unable to find resource like AWS SecretManagerARN etc.
+    ResourceNotFoundError = auto()
+
 class ErrorDetails:
     """Represents the error details."""
     def __init__(self, error_code: ErrorCode, error_message: str, retry_after_seconds: int = None):
