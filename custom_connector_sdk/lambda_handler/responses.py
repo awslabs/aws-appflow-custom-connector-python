@@ -83,7 +83,7 @@ class ErrorCode(Enum):
     # Specifies that the connector encountered failure, for some records, while writing to the application.
     PartialWriteFailure = auto()
 
-    # Specifies that the connector is unable to find the resource like AWS SecretManagerARN etc.
+    # Specifies that the connector is unable to find resource like AWS SecretManagerARN etc.
     ResourceNotFoundError = auto()
 
 class ErrorDetails:
