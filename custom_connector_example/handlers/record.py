@@ -1,6 +1,8 @@
 import json
 import logging
+from typing import List
 import urllib.parse
+
 import custom_connector_sdk.lambda_handler.requests as requests
 import custom_connector_sdk.lambda_handler.responses as responses
 import custom_connector_example.handlers.validation as validation
@@ -34,7 +36,7 @@ def get_query_connector_response(query_object: QueryObject, connector_context: C
     https_client = salesforce.get_salesforce_client(connector_context)
     return https_client.rest_get(request_uri)
 
-def parse_query_response(json_response: str) -> [str]:
+def parse_query_response(json_response: str) -> List[str]:
     """Parse JSON response from Salesforce query to a list of records."""
     parent_object = json.loads(json_response)
 

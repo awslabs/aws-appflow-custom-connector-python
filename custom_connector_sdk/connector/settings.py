@@ -1,4 +1,5 @@
 from enum import Enum, auto
+from typing import List
 
 TIME_TO_LIVE = 'timeToLive'
 TIME_TO_LIVE_UNIT = 'timeToLiveUnit'
@@ -74,7 +75,7 @@ class ConnectorRuntimeSetting:
                  label: str,
                  description: str,
                  scope: ConnectorRuntimeSettingScope,
-                 connector_supplied_value_options: [str] = None):
+                 connector_supplied_value_options: List[str] = None):
         # Unique identifier for the connector runtime setting
         self.key = key
 

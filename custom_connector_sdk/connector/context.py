@@ -1,3 +1,5 @@
+from typing import List
+
 from custom_connector_sdk.connector.fields import FieldDefinition
 from custom_connector_sdk.connector.auth import Credentials
 
@@ -55,7 +57,7 @@ class Entity:
 
 class EntityDefinition:
     """Data model of the Entity."""
-    def __init__(self, entity: Entity, fields: [FieldDefinition], custom_properties: dict = None):
+    def __init__(self, entity: Entity, fields: List[FieldDefinition], custom_properties: dict = None):
         # Contains its name, description, label or if it has child properties or not.
         self.entity = entity
 

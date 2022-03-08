@@ -1,3 +1,5 @@
+from typing import List
+
 from custom_connector_sdk.connector.context import ConnectorContext
 from custom_connector_sdk.connector.settings import ConnectorRuntimeSettingScope
 from custom_connector_sdk.connector.fields import WriteOperationType
@@ -147,9 +149,9 @@ class RetrieveDataRequest:
     def __init__(self,
                  entity_identifier: str,
                  connector_context: ConnectorContext,
-                 selected_field_names: [str] = None,
+                 selected_field_names: List[str] = None,
                  id_field_name: str = None,
-                 ids: [str] = None):
+                 ids: List[str] = None):
         # Unique identifier for the entity. Can be entity_id, entity_name, entity_path+name, entity_url, etc.
         self.entity_identifier = entity_identifier
 
@@ -188,8 +190,8 @@ class WriteDataRequest:
                  entity_identifier: str,
                  connector_context: ConnectorContext,
                  operation: WriteOperationType = None,
-                 id_field_names: [str] = None,
-                 records: [str] = None,
+                 id_field_names: List[str] = None,
+                 records: List[str] = None,
                  all_or_none: bool = None):
         # Unique identifier for the entity. Can be entity_id, entity_name, entity_path+name, entity_url, etc.
         self.entity_identifier = entity_identifier
@@ -237,7 +239,7 @@ class QueryDataRequest:
     def __init__(self,
                  entity_identifier: str,
                  connector_context: ConnectorContext,
-                 selected_field_names: [str] = None,
+                 selected_field_names: List[str] = None,
                  filter_expression: str = None,
                  next_token: str = None,
                  max_results: int = DEFAULT_MAX_RESULT):

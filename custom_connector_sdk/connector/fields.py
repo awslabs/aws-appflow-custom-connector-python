@@ -1,5 +1,7 @@
 from enum import Enum, auto
 from decimal import Decimal
+from typing import List
+
 from custom_connector_sdk.connector.configuration import ConnectorOperator
 
 MIN_RANGE = 'minRange'
@@ -81,7 +83,7 @@ class FieldConstraints:
     def __init__(self,
                  allowed_length_range: RangeConstraint = None,
                  allowed_value_range: RangeConstraint = None,
-                 allowed_values: [str] = None,
+                 allowed_values: List[str] = None,
                  allowed_values_regex_pattern: str = None,
                  allowed_date_format: str = None):
         # Min and Max range of the length of the value.
@@ -175,7 +177,7 @@ class WriteOperationProperty:
                  is_nullable: bool = None,
                  is_upsertable: bool = None,
                  is_defaulted_on_create: bool = None,
-                 supported_write_operations: [WriteOperationType] = None):
+                 supported_write_operations: List[WriteOperationType] = None):
         # Specifies if the destination field can be created by the current user.
         self.is_creatable = is_creatable
 
@@ -246,7 +248,7 @@ class FieldDefinition:
                  constraints: FieldConstraints = None,
                  read_properties: ReadOperationProperty = None,
                  write_properties: WriteOperationProperty = None,
-                 filter_operators: [ConnectorOperator] = None,
+                 filter_operators: List[ConnectorOperator] = None,
                  custom_properties: dict = None):
         # The unique identifier of the connector field.
         self.field_name = field_name

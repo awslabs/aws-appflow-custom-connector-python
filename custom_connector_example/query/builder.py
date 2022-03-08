@@ -1,3 +1,5 @@
+from typing import List
+
 from custom_connector_sdk.connector.fields import FieldDataType
 from custom_connector_sdk.connector.context import EntityDefinition
 from custom_connector_queryfilter.queryfilter.parse_tree_builder import parse
@@ -14,11 +16,11 @@ class QueryObject:
     """Stores parameters to be built into a Salesforce query."""
     def __init__(self,
                  s_object: str,
-                 selected_field_names: [str] = None,
+                 selected_field_names: List[str] = None,
                  filter_expression: str = None,
                  id_field_name: str = None,
-                 fields: [str] = None,
-                 data_type: [str] = None,
+                 fields: List[str] = None,
+                 data_type: List[str] = None,
                  entity_definition: EntityDefinition = None):
         self.s_object = s_object
         self.selected_field_names = selected_field_names
@@ -59,10 +61,10 @@ def build_query(query_object: QueryObject) -> str:
     return ' '.join(clauses)
 
 def add_or_conditions(operator: str,
-                      conditions: [str],
+                      conditions: List[str],
                       variable: str,
-                      values: [str],
-                      value_type: str) -> [str]:
+                      values: List[str],
+                      value_type: str) -> List[str]:
     """Joins clauses with 'or'"""
     or_conditions = []
     for value in values:
@@ -73,7 +75,7 @@ def add_or_conditions(operator: str,
     return conditions
 
 def add_condition(operator: str,
-                  conditions: [str],
+                  conditions: List[str],
                   field_name: str,
                   value: str,
                   value_type: str) -> str:

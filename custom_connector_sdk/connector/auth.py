@@ -1,4 +1,5 @@
 from enum import Enum, auto
+from typing import List
 
 KEY = 'key'
 REQUIRED = 'required'
@@ -42,7 +43,7 @@ class AuthParameter:
                  label: str,
                  description: str,
                  sensitive_field: bool = None,
-                 connector_supplied_values: [str] = None):
+                 connector_supplied_values: List[str] = None):
         # Unique identifier for AuthParameter.
         self.key = key
 
@@ -142,10 +143,10 @@ class OAuth2GrantType(Enum):
 class OAuth2Defaults:
     """Default OAuth2 Params values defined by connector."""
     def __init__(self,
-                 token_url: [str],
-                 auth_url: [str],
-                 o_auth_2_grant_types_supported: [OAuth2GrantType],
-                 o_auth_scopes: [str] = None):
+                 token_url: List[str],
+                 auth_url: List[str],
+                 o_auth_2_grant_types_supported: List[OAuth2GrantType],
+                 o_auth_scopes: List[str] = None):
         # OAuth Scopes.
         self.o_auth_scopes = o_auth_scopes
 
@@ -193,7 +194,7 @@ class CustomAuthCredentials:
 
 class CustomAuthConfig:
     """Represents the Custom Authentication configuration."""
-    def __init__(self, authentication_type: str, auth_parameters: [AuthParameter]):
+    def __init__(self, authentication_type: str, auth_parameters: List[AuthParameter]):
         # AuthenticationType string value defined by connector.
         self.authentication_type = authentication_type
 
@@ -247,7 +248,7 @@ class AuthenticationConfig:
                  is_oauth_2_supported: bool = None,
                  is_custom_auth_supported: bool = None,
                  o_auth_2_defaults: OAuth2Defaults = None,
-                 custom_auth_config: [CustomAuthConfig] = None):
+                 custom_auth_config: List[CustomAuthConfig] = None):
         # Specifies if Basic Auth is supported by connector.
         self.is_basic_auth_supported = is_basic_auth_supported
 

@@ -1,4 +1,6 @@
 from enum import Enum, auto
+from typing import List
+
 from custom_connector_sdk.connector.context import Entity, EntityDefinition
 from custom_connector_sdk.connector.settings import CacheControl, ConnectorRuntimeSetting
 from custom_connector_sdk.connector.configuration import ConnectorOperator, ConnectorModes, TriggerFrequency, TriggerType
@@ -128,7 +130,7 @@ class ListEntitiesResponse:
     def __init__(self,
                  is_success: bool,
                  error_details: ErrorDetails = None,
-                 entities: [Entity] = None,
+                 entities: List[Entity] = None,
                  next_token: str = None,
                  cache_control: CacheControl = None):
         # Specifies if the operation is successful or not.
@@ -196,15 +198,15 @@ class DescribeConnectorConfigurationResponse:
                  connector_owner: str,
                  connector_name: str,
                  connector_version: str,
-                 connector_modes: [ConnectorModes],
-                 supported_api_versions: [str],
+                 connector_modes: List[ConnectorModes],
+                 supported_api_versions: List[str],
                  is_success: bool,
-                 operators_supported: [ConnectorOperator] = ALL_OPERATORS,
-                 trigger_frequencies_supported: [TriggerFrequency] = ALL_TRIGGER_FREQUENCIES,
-                 supported_write_operations: [WriteOperationType] = ALL_WRITE_OPERATION_TYPES,
-                 supported_trigger_types: [TriggerType] = ALL_TRIGGER_TYPES,
+                 operators_supported: List[ConnectorOperator] = ALL_OPERATORS,
+                 trigger_frequencies_supported: List[TriggerFrequency] = ALL_TRIGGER_FREQUENCIES,
+                 supported_write_operations: List[WriteOperationType] = ALL_WRITE_OPERATION_TYPES,
+                 supported_trigger_types: List[TriggerType] = ALL_TRIGGER_TYPES,
                  authentication_config: AuthenticationConfig = None,
-                 connector_runtime_setting: [ConnectorRuntimeSetting] = None,
+                 connector_runtime_setting: List[ConnectorRuntimeSetting] = None,
                  logo_url: str = None,
                  error_details: ErrorDetails = None):
         # Name of the connector owner.
@@ -288,7 +290,7 @@ class ValidateConnectorRuntimeSettingsResponse:
 
 class RetrieveDataResponse:
     """Represents the output of a RetrieveData operation."""
-    def __init__(self, is_success: bool, error_details: ErrorDetails = None, records: [str] = None):
+    def __init__(self, is_success: bool, error_details: ErrorDetails = None, records: List[str] = None):
         # Specifies if the operation is successful or not.
         self.is_success = is_success
 
@@ -307,7 +309,7 @@ class WriteDataResponse:
     """Represents the output of a WriteData operation."""
     def __init__(self, is_success: bool,
                  error_details: ErrorDetails = None,
-                 write_record_results: [WriteRecordResult] = None):
+                 write_record_results: List[WriteRecordResult] = None):
         # Specifies if the operation is successful or not. In case of partial failure,
         # this flag should be set to false and the error code should be set to PartialWriteFailure.
         self.is_success = is_success
@@ -330,7 +332,7 @@ class QueryDataResponse:
                  is_success: bool,
                  error_details: ErrorDetails = None,
                  next_token: str = None,
-                 records: [str] = None):
+                 records: List[str] = None):
         # Specifies if the operation is successful or not.
         self.is_success = is_success
 
