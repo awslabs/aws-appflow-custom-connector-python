@@ -1,5 +1,7 @@
 import json
 import logging
+from typing import List
+
 import custom_connector_sdk.lambda_handler.requests as requests
 import custom_connector_sdk.lambda_handler.responses as responses
 import custom_connector_sdk.connector.context as context
@@ -33,7 +35,7 @@ DEFAULTED_ON_CREATE_KEY = 'defaultedOnCreate'
 DEFAULT_VALUE_KEY = 'defaultValue'
 UNIQUE_KEY = 'unique'
 
-def parse_entities(json_string: str) -> [context.Entity]:
+def parse_entities(json_string: str) -> List[context.Entity]:
     """Parse JSON response from Salesforce query into a list of Entities."""
     parent_object = json.loads(json_string)
     entity_list = []
