@@ -239,7 +239,7 @@ class FieldDefinition:
     def __init__(self,
                  field_name: str,
                  data_type: FieldDataType,
-                 data_type_label: str,
+                 data_type_label: str = None,
                  label: str = None,
                  description: str = None,
                  is_primary_key: bool = None,
