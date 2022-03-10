@@ -65,6 +65,7 @@ Prerequisites:
 Steps:
 
 1. Create a DockerFile in your connector directory. You can use the DockerFile provided in the example.
+
         FROM public.ecr.aws/lambda/python:3.8
 
         #Copy function code
@@ -78,17 +79,26 @@ Steps:
 
         #Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
         CMD [ "custom_connector_example.handlers.lambda_handler.salesforce_lambda_handler" ]
+
 2. Build your docker image by using the following command.
-      docker build -t salesforcepaid .
+
+        docker build -t salesforcepaid .
+      
 3. Authenticate to the registry created from step 2.4a.
-      aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com (http://aws_account_id.dkr.ecr.region.amazonaws.com/)
+
+        aws ecr get-login-password --region region | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.region.amazonaws.com (http://aws_account_id.dkr.ecr.region.amazonaws.com/)
+
 4. Tag the image to push to repository.
-      docker tag hello-world:1.0
-      aws_account_id.dkr.ecr.us-east-1.amazonaws.com/hello-world:1.0
+
+        docker tag hello-world:1.0 aws_account_id.dkr.ecr.us-east-1.amazonaws.com/hello-world:1.0
+
 5. Push the image
-      docker push aws_account_id.dkr.ecr.us-east-1.amazonaws.com/hello-world:1.0
+
+        docker push aws_account_id.dkr.ecr.us-east-1.amazonaws.com/hello-world:1.0
+
 6. Validate the image is created in ECR or not.
-      aws ecr describe-images --registry-id 709825985650 --repository-name test-product/salesforcepaid —region us-east-1
+
+        aws ecr describe-images --registry-id 709825985650 --repository-name test-product/salesforcepaid —region us-east-1
 
 # Usage Instruction for Connector Users:
 
@@ -98,31 +108,31 @@ For macOS or Linux systems, use the AWS CLI:
 
 ## Step 1: Retrieve the login command to authenticate your Docker client to your registry.
 
-aws ecr get-login-password --region us-east-1 | docker login --username AWS —password-stdin 709825985650.dkr.ecr.us-east-1.amazonaws.com
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS —password-stdin 709825985650.dkr.ecr.us-east-1.amazonaws.com
 
 For Windows systems, use AWS Tools for PowerShell:
 
-Invoke-Expression -Command (Get-ECRLoginCommand -Region us-east-1 -RegistryId "709825985650").Command
+        Invoke-Expression -Command (Get-ECRLoginCommand -Region us-east-1 -RegistryId "709825985650").Command
 
 Note: If you receive an 'Unknown options: -no-include-email' error when using the AWS CLI, ensure that you have the latest version installed.
 
 ## Step 2: Pull the docker images listed below.
 
-docker pull 709825985650.dkr.ecr.us-east-1.amazonaws.com/test-product/salesforcejava:1.0 (http://709825985650.dkr.ecr.us-east-1.amazonaws.com/test-product/salesforcejava:1.0)
+        docker pull 709825985650.dkr.ecr.us-east-1.amazonaws.com/test-product/salesforcejava:1.0 (http://709825985650.dkr.ecr.us-east-1.amazonaws.com/test-product/salesforcejava:1.0)
 
 ## Step 3: Create an ECR repository in your account. Follow this to create repository https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html
 
 ## Step 4: Tag a new image based on the original source image.
 
-docker tag $SOURCE_IMAGE:$VERSION $TARGET_IMAGE:$VERSION
+        docker tag $SOURCE_IMAGE:$VERSION $TARGET_IMAGE:$VERSION
 
 ## Step 5: Run this for your AWS account where you want to deploy this.
 
-aws ecr get-login-password --region AWS_REGION | docker login --username AWS --password-stdin AWS_ACCOUNT.dkr.ecr.AWS_REGION.amazonaws.com (http://aws_account.dkr.ecr.us-east-1.amazonaws.com/)
+        aws ecr get-login-password --region AWS_REGION | docker login --username AWS --password-stdin AWS_ACCOUNT.dkr.ecr.AWS_REGION.amazonaws.com (http://aws_account.dkr.ecr.us-east-1.amazonaws.com/)
 
 ## Step 6: Push the image into the repository you created.
 
-docker push docker push $TARGET_IMAGE:$VERSION
+        docker push docker push $TARGET_IMAGE:$VERSION
 
 ## Step 7: Create a lambda function in your account by using the container image.
 
