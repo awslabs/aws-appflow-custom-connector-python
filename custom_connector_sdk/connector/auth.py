@@ -2,6 +2,7 @@ from enum import Enum, auto
 from typing import List
 
 KEY = 'key'
+TYPE = 'type'
 REQUIRED = 'required'
 LABEL = 'label'
 DESCRIPTION = 'description'
@@ -24,6 +25,7 @@ DEFAULT_VALUES = 'defaultValues'
 AUTHENTICATION_TYPE = 'authenticationType'
 CUSTOM_CREDENTIALS = 'customCredentials'
 AUTH_PARAMETERS = 'authParameters'
+O_AUTH_2_CUSTOM_PROPERTIES = 'oAuth2CustomProperties'
 BASIC_AUTH_CREDENTIALS = 'basicAuthCredentials'
 API_KEY_CREDENTIALS = 'apiKeyCredentials'
 O_AUTH_2_CREDENTIALS = 'oAuth2Credentials'
@@ -68,6 +70,46 @@ class AuthParameter:
                 LABEL: self.label,
                 DESCRIPTION: self.description,
                 SENSITIVE_FIELD: self.sensitive_field,
+                CONNECTOR_SUPPLIED_VALUES: self.connector_supplied_values}
+
+class Oauth2CustomParameter:
+    """Represents the custom parameter required for oauth2 authentication."""
+    def __init__(self,
+                 key: str,
+                 required: bool,
+                 label: str,
+                 description: str,
+                 sensitive_field: bool = None,
+                 type: OAuth2CustomPropType,
+                 connector_supplied_values: List[str] = None):
+        # Unique identifier for custom Oauth2 parameter..
+        self.key = key
+
+        # Specifies if this Oauth2 parameter is related to Token Url or Auth Url
+        self.type = type
+
+        # Specifies if this Oauth2 parameter is required or not.
+        self.required = required
+
+        # Label of the custom Oauth2 parameter.
+        self.label = label
+
+        # Description of the custom Oauth2 parameter.
+        self.description = description
+
+        # Specifies if this field data is sensitive/Critical that shouldn't be stored as plain text.
+        self.sensitive_field = sensitive_field
+
+        # Values provided by connector which can be used as input for this Parameter.
+        self.connector_supplied_values = connector_supplied_values
+
+    def to_dict(self):
+        return {KEY: self.key,
+                REQUIRED: self.required,
+                LABEL: self.label,
+                DESCRIPTION: self.description,
+                SENSITIVE_FIELD: self.sensitive_field,
+                TYPE: self.type,
                 CONNECTOR_SUPPLIED_VALUES: self.connector_supplied_values}
 
 class BasicAuthCredentials:
@@ -140,13 +182,18 @@ class OAuth2GrantType(Enum):
     CLIENT_CREDENTIALS = auto()
     AUTHORIZATION_CODE = auto()
 
+class OAuth2CustomPropType(Enum):
+    TOKEN_URL = auto()
+    AUTH_URL = auto()
+
 class OAuth2Defaults:
     """Default OAuth2 Params values defined by connector."""
     def __init__(self,
                  token_url: List[str],
                  auth_url: List[str],
                  o_auth_2_grant_types_supported: List[OAuth2GrantType],
-                 o_auth_scopes: List[str] = None):
+                 o_auth_scopes: List[str] = None,
+                 o_auth_2_custom_parameters = List[Oauth2CustomParameter]):
         # OAuth Scopes.
         self.o_auth_scopes = o_auth_scopes
 
@@ -159,12 +206,15 @@ class OAuth2Defaults:
         # OAuth2 Grant types supported by connector.
         self.o_auth_2_grant_types_supported = o_auth_2_grant_types_supported
 
+        self.o_auth_2_custom_parameters = o_auth_2_custom_parameters
+
     def to_dict(self):
         return {
                 TOKEN_URL: self.token_url,
                 AUTH_URL: self.auth_url,
                 O_AUTH_2_GRANT_TYPES_SUPPORTED: [grant_type.name for grant_type in self.o_auth_2_grant_types_supported],
-                O_AUTH_SCOPES: self.o_auth_scopes}
+                O_AUTH_SCOPES: self.o_auth_scopes,
+                O_AUTH_2_CUSTOM_PROPERTIES: [param.to_dict() for param in self.o_auth_2_custom_parameters]}
 
 class CustomAuthCredentials:
     """Credentials for Custom Authentication supported by connector. This structure is embedded in the Credentials
