@@ -150,10 +150,22 @@ class OAuth2Defaults:
         # OAuth Scopes.
         self.o_auth_scopes = o_auth_scopes
 
-        # Login URLs.
+        # This URL can be in two format - Static and Template based where we need the input from the Customer to build the complete URL.
+        # For Static URLs you can add the URL directly to this list like
+        # - https://login.salesforce.com/services/oauth2/token
+        # And for template based URLs, you can use this format
+        # - https://{{SALESFORCE_SUBDOMAIN}}.auth.marketingcloudapis.com/v2/token where the SALESFORCE_SUBDOMAIN
+        # will be the user input and AppFlow will ask the customers to provide its value while
+        # configuring the connector profile.
         self.token_url = token_url
 
-        # Auth URLs.
+        # This URL can be in two format - Static and Template based where we need the input from the Customer to build the complete URL.
+        # For Static URLs you can add the URL directly to this list like
+        #  - https://login.salesforce.com/services/oauth2/token.
+        # And for template based URLs, you can use this format
+        # - https://{{SALESFORCE_SUBDOMAIN}}.auth.marketingcloudapis.com/v2/token where the SALESFORCE_SUBDOMAIN
+        # will be the user input and AppFlow will ask the customers to provide its value while
+        # configuring the connector profile.
         self.auth_url = auth_url
 
         # OAuth2 Grant types supported by connector.
