@@ -113,12 +113,12 @@ class RecordHandler(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def query_data(self, request: requests.QueryDataRequest) -> responses.QueryDataResponse:
-        """Writes batch of records to the destination application.
+        """Queries the data from the source application against the supplied filter conditions.
 
         Parameters:
-        request (QueryDataResponse)
+        request (QueryDataRequest)
 
         Return:
-        WriteDataResponse
+        QueryDataResponse
         """
         pass
