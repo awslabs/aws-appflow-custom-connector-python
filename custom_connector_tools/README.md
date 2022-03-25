@@ -3,7 +3,7 @@ This document explains how you can deploy a lambda connector into your AWS accou
 
 ## Prerequisites:
 
-- mvn
+- pip
 - aws cli
 
 ## Command:
