@@ -272,7 +272,7 @@ The Amazon AppFlow documentation is located here: https://docs.aws.amazon.com/ap
 ### Downloading the SDK
 
 
-The Amazon AppFlow Custom Connector SDK is available for both Java and Python on github at the following link: https://github.com/orgs/awslabs/teams/amazon-appflow/repositories
+The Amazon AppFlow Custom Connector SDK is available for both Java and Python on github at the following link: https://github.com/orgs/awslabs/repositories?q=aws-appflow-custom-connector-
 
 * Java SDK - You can find the Java SDK in [AppFlowJavaSdk](https://github.com/awslabs/aws-appflow-custom-connector-java)/
 * Python SDK - You can find the Python SDK .whl file in [AppFlowPythonSDK/](https://github.com/awslabs/aws-appflow-custom-connector-python)
