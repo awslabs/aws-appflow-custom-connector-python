@@ -57,7 +57,8 @@ def build_entity(field: dict) -> context.Entity:
     return context.Entity(entity_identifier=salesforce.get_string_value(field, NAME_KEY),
                           label=description,
                           has_nested_entities=has_nested_entities,
-                          description=description)
+                          description=description,
+                          is_writable=field.get(CREATEABLE_KEY))
 
 def parse_entity_definition(json_string: str) -> context.EntityDefinition:
     """Parse JSON response from Salesforce query into an entity definition."""

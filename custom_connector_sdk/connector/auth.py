@@ -36,6 +36,8 @@ IS_O_AUTH_2_SUPPORTED = 'isOAuth2Supported'
 IS_CUSTOM_AUTH_SUPPORTED = 'isCustomAuthSupported'
 O_AUTH_2_DEFAULTS = 'oAuth2Defaults'
 CUSTOM_AUTH_CONFIG = 'customAuthConfig'
+O_AUTH_2_CONTENT_TYPE = 'oAuth2ContentType'
+O_AUTH_2_METHOD_TYPE = 'oAuth2MethodType'
 
 class OAuth2CustomPropType(Enum):
     TOKEN_URL = auto()
@@ -186,6 +188,14 @@ class OAuth2GrantType(Enum):
     CLIENT_CREDENTIALS = auto()
     AUTHORIZATION_CODE = auto()
 
+class OAuth2ContentType(Enum):
+    URL_ENCODED = auto()
+    APPLICATION_JSON = auto()
+
+class OAuth2MethodType(Enum):
+    HTTP_POST = auto()
+    HTTP_GET = auto()
+
 class OAuth2Defaults:
     """Default OAuth2 Params values defined by connector."""
     def __init__(self,
@@ -193,7 +203,9 @@ class OAuth2Defaults:
                  auth_url: List[str],
                  o_auth_2_grant_types_supported: List[OAuth2GrantType],
                  o_auth_scopes: List[str] = None,
-                 o_auth_2_custom_parameters: List[Oauth2CustomParameter] = None):
+                 o_auth_2_custom_parameters: List[Oauth2CustomParameter] = None,
+                 o_auth_2_content_type: OAuth2ContentType = OAuth2ContentType.URL_ENCODED,
+                 o_auth_2_method_type: OAuth2MethodType = OAuth2MethodType.HTTP_POST):
         # OAuth Scopes.
         self.o_auth_scopes = o_auth_scopes
 
@@ -223,13 +235,23 @@ class OAuth2Defaults:
         # Connector developer doesn't have to define clientId and scope as OAuth2Custom Parameter for AUTH_URL.
         self.o_auth_2_custom_parameters = o_auth_2_custom_parameters
 
+        # OAuth2 content type used for login requests. URL_ENCODED or APPLICATION_JSON.
+        # Default: URL_ENCODED
+        self.o_auth_2_content_type = o_auth_2_content_type
+
+        # Rest method type used for OAuth2 login requests. GET or POST.
+        # Default: POST
+        self.o_auth_2_method_type = o_auth_2_method_type
+
     def to_dict(self):
         return {
                 TOKEN_URL: self.token_url,
                 AUTH_URL: self.auth_url,
                 O_AUTH_2_GRANT_TYPES_SUPPORTED: [grant_type.name for grant_type in self.o_auth_2_grant_types_supported],
                 O_AUTH_SCOPES: self.o_auth_scopes,
-                O_AUTH_2_CUSTOM_PROPERTIES: self.o_auth_2_custom_parameters and [param.to_dict() for param in self.o_auth_2_custom_parameters]}
+                O_AUTH_2_CUSTOM_PROPERTIES: self.o_auth_2_custom_parameters and [param.to_dict() for param in self.o_auth_2_custom_parameters],
+                O_AUTH_2_CONTENT_TYPE: self.o_auth_2_content_type.name,
+                O_AUTH_2_METHOD_TYPE: self.o_auth_2_method_type.name}
 
 class CustomAuthCredentials:
     """Credentials for Custom Authentication supported by connector. This structure is embedded in the Credentials
