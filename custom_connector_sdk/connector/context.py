@@ -21,7 +21,7 @@ class Entity:
     def __init__(self,
                  entity_identifier: str,
                  has_nested_entities: bool,
-                 has_detination_support: bool,
+                 has_destination_support: bool,
                  label: str = None,
                  description: str = None):
         # Unique identifier for the entity. Can be entityId, entityName, entityPath+name, entityUrl, etc.
@@ -60,7 +60,7 @@ class Entity:
         label = entity.get(LABEL)
         description = entity.get(DESCRIPTION)
 
-        return cls(entity_identifier, has_nested_entities, label, description)
+        return cls(entity_identifier, has_nested_entities, has_destination_support, label, description)
 
 class EntityDefinition:
     """Data model of the Entity."""
