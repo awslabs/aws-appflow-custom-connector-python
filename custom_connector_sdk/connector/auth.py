@@ -37,6 +37,10 @@ IS_CUSTOM_AUTH_SUPPORTED = 'isCustomAuthSupported'
 O_AUTH_2_DEFAULTS = 'oAuth2Defaults'
 CUSTOM_AUTH_CONFIG = 'customAuthConfig'
 
+class OAuth2CustomPropType(Enum):
+    TOKEN_URL = auto()
+    AUTH_URL = auto()
+
 class AuthParameter:
     """Represents the authentication parameter."""
     def __init__(self,
@@ -79,8 +83,8 @@ class Oauth2CustomParameter:
                  required: bool,
                  label: str,
                  description: str,
-                 sensitive_field: bool = None,
                  type: OAuth2CustomPropType,
+                 sensitive_field: bool = None,
                  connector_supplied_values: List[str] = None):
         # Unique identifier for custom Oauth2 parameter..
         self.key = key
@@ -182,10 +186,6 @@ class OAuth2GrantType(Enum):
     CLIENT_CREDENTIALS = auto()
     AUTHORIZATION_CODE = auto()
 
-class OAuth2CustomPropType(Enum):
-    TOKEN_URL = auto()
-    AUTH_URL = auto()
-
 class OAuth2Defaults:
     """Default OAuth2 Params values defined by connector."""
     def __init__(self,
@@ -193,7 +193,7 @@ class OAuth2Defaults:
                  auth_url: List[str],
                  o_auth_2_grant_types_supported: List[OAuth2GrantType],
                  o_auth_scopes: List[str] = None,
-                 o_auth_2_custom_parameters = List[Oauth2CustomParameter]):
+                 o_auth_2_custom_parameters: List[Oauth2CustomParameter] = None):
         # OAuth Scopes.
         self.o_auth_scopes = o_auth_scopes
 
@@ -218,6 +218,9 @@ class OAuth2Defaults:
         # OAuth2 Grant types supported by connector.
         self.o_auth_2_grant_types_supported = o_auth_2_grant_types_supported
 
+        # OAuth2 custom parameters needed by the connector. In case of 3 legged OAuth2 AppFlow have clientId and
+        # scope defined as the default parameter for AUTH_URL to generate the Authorization code.
+        # Connector developer doesn't have to define clientId and scope as OAuth2Custom Parameter for AUTH_URL.
         self.o_auth_2_custom_parameters = o_auth_2_custom_parameters
 
     def to_dict(self):
@@ -226,7 +229,7 @@ class OAuth2Defaults:
                 AUTH_URL: self.auth_url,
                 O_AUTH_2_GRANT_TYPES_SUPPORTED: [grant_type.name for grant_type in self.o_auth_2_grant_types_supported],
                 O_AUTH_SCOPES: self.o_auth_scopes,
-                O_AUTH_2_CUSTOM_PROPERTIES: [param.to_dict() for param in self.o_auth_2_custom_parameters]}
+                O_AUTH_2_CUSTOM_PROPERTIES: self.o_auth_2_custom_parameters and [param.to_dict() for param in self.o_auth_2_custom_parameters]}
 
 class CustomAuthCredentials:
     """Credentials for Custom Authentication supported by connector. This structure is embedded in the Credentials
