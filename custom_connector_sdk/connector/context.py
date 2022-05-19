@@ -5,7 +5,7 @@ from custom_connector_sdk.connector.auth import Credentials
 
 ENTITY_IDENTIFIER = 'entityIdentifier'
 HAS_NESTED_ENTITIES = 'hasNestedEntities'
-HAS_DESTINATION_SUPPORT = 'hasDestinationSupport'
+IS_WRITABLE = 'isWritable'
 LABEL = 'label'
 DESCRIPTION = 'description'
 ENTITY = 'entity'
@@ -21,7 +21,7 @@ class Entity:
     def __init__(self,
                  entity_identifier: str,
                  has_nested_entities: bool,
-                 has_destination_support: bool,
+                 is_writable: bool,
                  label: str = None,
                  description: str = None):
         # Unique identifier for the entity. Can be entityId, entityName, entityPath+name, entityUrl, etc.
@@ -30,8 +30,8 @@ class Entity:
         # Specifies whether the connector entity is a parent or a category and has more entities nested underneath it.
         self.has_nested_entities = has_nested_entities
         
-        # Specifies if entity is supported as a destination while creating flow
-        self.has_destination_support = has_destination_support
+        # Specifies if entity is writable
+        self.is_writable = is_writable
 
         # Label of the entity.
         self.label = label
@@ -42,7 +42,7 @@ class Entity:
     def to_dict(self):
         return {ENTITY_IDENTIFIER: self.entity_identifier,
                 HAS_NESTED_ENTITIES: self.has_nested_entities,
-                HAS_DESTINATION_SUPPORT: self.has_destination_support,
+                IS_WRITABLE: self.is_writable,
                 LABEL: self.label,
                 DESCRIPTION: self.description}
 
@@ -56,11 +56,11 @@ class Entity:
 
         entity_identifier = entity.get(ENTITY_IDENTIFIER)
         has_nested_entities = entity.get(HAS_NESTED_ENTITIES)
-        has_destination_support = entity.get(HAS_DESTINATION_SUPPORT)
+        is_writable = entity.get(IS_WRITABLE)
         label = entity.get(LABEL)
         description = entity.get(DESCRIPTION)
 
-        return cls(entity_identifier, has_nested_entities, has_destination_support, label, description)
+        return cls(entity_identifier, has_nested_entities, is_writable, label, description)
 
 class EntityDefinition:
     """Data model of the Entity."""
