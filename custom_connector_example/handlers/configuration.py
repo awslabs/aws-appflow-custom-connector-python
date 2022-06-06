@@ -59,15 +59,15 @@ class SalesforceConfigurationHandler(ConfigurationHandler):
                                                                             'run the operations',
                                                                 scope=settings.ConnectorRuntimeSettingScope
                                                                 .CONNECTOR_PROFILE)
-        api_version_setting = settings.ConnectorRuntimeSetting(key=API_VERSION_KEY,
+        is_sandbox_account_setting = settings.ConnectorRuntimeSetting(key=IS_SANDBOX_ACCOUNT,
                                                                data_type=settings.ConnectorRuntimeSettingDataType
                                                                .String,
                                                                required=True,
-                                                               label='Salesforce API version',
-                                                               description='Salesforce API version to use.',
+                                                               label='Type of salesforce account',
+                                                               description='Is Salesforce account a sandbox account',
                                                                scope=settings.ConnectorRuntimeSettingScope
                                                                .CONNECTOR_PROFILE)
-        connector_runtime_settings = [instance_url_setting, api_version_setting]
+        connector_runtime_settings = [instance_url_setting, is_sandbox_account_setting]
 
         o_auth_2_defaults = auth.OAuth2Defaults(auth_url=[AUTH_URL],
                                                 token_url=[TOKEN_URL],
