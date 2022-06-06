@@ -61,7 +61,7 @@ class SalesforceConfigurationHandler(ConfigurationHandler):
                                                                 .CONNECTOR_PROFILE)
         is_sandbox_account_setting = settings.ConnectorRuntimeSetting(key=IS_SANDBOX_ACCOUNT,
                                                                data_type=settings.ConnectorRuntimeSettingDataType
-                                                               .String,
+                                                               .Boolean,
                                                                required=True,
                                                                label='Type of salesforce account',
                                                                description='Is Salesforce account a sandbox account',
