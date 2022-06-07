@@ -6,7 +6,7 @@ import custom_connector_sdk.connector.context as context
 import custom_connector_sdk.connector.auth as auth
 import custom_connector_example.constants as constants
 import custom_connector_example.handlers.validation as validation
-from custom_connector_example.handlers.metadata import SalesforceMetadataHandler
+import custom_connector_example.handlers.salesforce as salesforce
 from custom_connector_sdk.lambda_handler.handlers import ConfigurationHandler
 
 CONNECTOR_OWNER = 'SampleConnector'
@@ -20,6 +20,9 @@ AUTH_URL = 'https://login.salesforce.com/services/oauth2/authorize'
 TOKEN_URL = 'https://login.salesforce.com/services/oauth2/token'
 REFRESH_URL = 'https://login.salesforce.com/services/oauth2/token'
 REDIRECT_URL = 'https://login.salesforce.com'
+SALESFORCE_USERINFO_URL_FORMAT = 'https://login.salesforce.com/services/oauth2/userinfo'
+SALESFORCE_USERINFO_SANDBOX_URL_FORMAT = 'https://test.salesforce.com/services/oauth2/userinfo'
+TRUE = 'true'
 
 class SalesforceConfigurationHandler(ConfigurationHandler):
     """Salesforce Configuration Handler."""
@@ -35,9 +38,10 @@ class SalesforceConfigurationHandler(ConfigurationHandler):
         connector_context = context.ConnectorContext(credentials=request.credentials,
                                                      api_version=API_VERSION,
                                                      connector_runtime_settings=request.connector_runtime_settings)
-        list_entities_request = requests.ListEntitiesRequest(connector_context)
-        list_entities_response = SalesforceMetadataHandler().list_entities(list_entities_request)
-        if list_entities_response.error_details:
+        request_uri = buildSalesforceUserInfoRequest(request.connector_runtime_settings)
+        salesforce_response = salesforce.get_salesforce_client(connector_context).rest_get(request_uri)
+        error_details = salesforce.check_for_errors_in_salesforce_response(salesforce_response)
+        if error_details:
             return responses.ValidateCredentialsResponse(is_success=False,
                                                          error_details=list_entities_response.error_details)
         return responses.ValidateCredentialsResponse(is_success=True)
@@ -55,15 +59,15 @@ class SalesforceConfigurationHandler(ConfigurationHandler):
                                                                             'run the operations',
                                                                 scope=settings.ConnectorRuntimeSettingScope
                                                                 .CONNECTOR_PROFILE)
-        api_version_setting = settings.ConnectorRuntimeSetting(key=API_VERSION_KEY,
+        is_sandbox_account_setting = settings.ConnectorRuntimeSetting(key=IS_SANDBOX_ACCOUNT,
                                                                data_type=settings.ConnectorRuntimeSettingDataType
-                                                               .String,
+                                                               .Boolean,
                                                                required=True,
-                                                               label='Salesforce API version',
-                                                               description='Salesforce API version to use.',
+                                                               label='Type of salesforce account',
+                                                               description='Is Salesforce account a sandbox account',
                                                                scope=settings.ConnectorRuntimeSettingScope
                                                                .CONNECTOR_PROFILE)
-        connector_runtime_settings = [instance_url_setting, api_version_setting]
+        connector_runtime_settings = [instance_url_setting, is_sandbox_account_setting]
 
         o_auth_2_defaults = auth.OAuth2Defaults(auth_url=[AUTH_URL],
                                                 token_url=[TOKEN_URL],
@@ -82,3 +86,9 @@ class SalesforceConfigurationHandler(ConfigurationHandler):
                                                                 supported_api_versions=[API_VERSION],
                                                                 supported_write_operations=constants
                                                                 .SUPPORTED_WRITE_OPERATIONS)
+
+    def buildSalesforceUserInfoRequest(connector_runtime_settings: dict) -> str:
+        is_sandbox = connector_runtime_settings.get(constants.IS_SANDBOX_ACCOUNT)
+        if is_sandbox and is_sandbox.lower() == TRUE
+            return SALESFORCE_USERINFO_SANDBOX_URL_FORMAT
+        return SALESFORCE_USERINFO_URL_FORMAT
