@@ -15,6 +15,7 @@ CONNECTOR_VERSION = '1.0'
 
 API_VERSION = 'v51.0'
 API_VERSION_KEY = 'api_version'
+IS_SANDBOX_ACCOUNT = "is_sandbox_account"
 
 AUTH_URL = 'https://login.salesforce.com/services/oauth2/authorize'
 TOKEN_URL = 'https://login.salesforce.com/services/oauth2/token'
@@ -23,6 +24,12 @@ REDIRECT_URL = 'https://login.salesforce.com'
 SALESFORCE_USERINFO_URL_FORMAT = 'https://login.salesforce.com/services/oauth2/userinfo'
 SALESFORCE_USERINFO_SANDBOX_URL_FORMAT = 'https://test.salesforce.com/services/oauth2/userinfo'
 TRUE = 'true'
+
+def buildSalesforceUserInfoRequest(connector_runtime_settings: dict) -> str:
+        is_sandbox = connector_runtime_settings.get(constants.IS_SANDBOX_ACCOUNT)
+        if is_sandbox and is_sandbox.lower() == TRUE:
+            return SALESFORCE_USERINFO_SANDBOX_URL_FORMAT
+        return SALESFORCE_USERINFO_URL_FORMAT
 
 class SalesforceConfigurationHandler(ConfigurationHandler):
     """Salesforce Configuration Handler."""
@@ -86,9 +93,3 @@ class SalesforceConfigurationHandler(ConfigurationHandler):
                                                                 supported_api_versions=[API_VERSION],
                                                                 supported_write_operations=constants
                                                                 .SUPPORTED_WRITE_OPERATIONS)
-
-    def buildSalesforceUserInfoRequest(connector_runtime_settings: dict) -> str:
-        is_sandbox = connector_runtime_settings.get(constants.IS_SANDBOX_ACCOUNT)
-        if is_sandbox and is_sandbox.lower() == TRUE
-            return SALESFORCE_USERINFO_SANDBOX_URL_FORMAT
-        return SALESFORCE_USERINFO_URL_FORMAT
