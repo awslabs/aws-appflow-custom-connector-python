@@ -29,6 +29,95 @@ After retrieving the metadata from the connector, AppFlow caches the metadata as
 along with the metadata response in the CacheControl structure. If no ttl value is specified, AppFlow defaults to 
 1 hour.
     
+These APIs should be implemented in the MetadataHandler and should return metadata about the entities that are supported by the underlying application. An Entity is a standalone object that can be queried by the Public API.
+
+AppFlow expects the MetadataResponse to contain information about the structure of any given Entity, called the EntityDefinition. At a minimum, the EntityDefinition should contain the  following fields:
+
+1. **Entity:** Contains information about the actual entity such as EntityIdentifier, Label, Description, whether the entity is writable or has nested entities.
+2. **Fields:** List of FieldDefinitions which contains information about the fields supported by this entity.
+
+
+###Entity
+* **entityIdentifier** - The unique id which is used to identify the entity in requests made to the service. This could be entityId/ entityName / entityPath+name / entityUrl etc...
+
+* **hasNestedEntities** - A boolean indicating whether the entity has nested or child entities associated with it. AppFlow uses this parameter to determine whether child entities exist and should be displayed to the user for selection during flow creation.
+
+* **isWriteable** - A boolean indicating whether the entity is writeable. This field helps AppFlow determine whether an entity supports WRITE operations. Entities that don't support WRITE operations are excluded when the given connector is used as a "destination" connector in the AppFlow Flow
+
+* **label** - An optional string field indicating the label of the entity. If no value is provided, the identifier is displayed to the customers.
+
+* **description** - An optional string field indicating the description of the entity. You can provide a description to give customers information about the entity.
+
+###FieldDefinition
+* **fieldName** - The unique identifier for the field. Used to identify the field in requests made to the service.
+
+* **dataType** - The data type of this field. AppFlow supports the following data types and you must select one of these types:
+```python
+class FieldDataType(Enum):
+    # String data type used for storing a sequence of characters. Ex. "CustomConnectorDataType".
+    String = auto()
+    # 32-bit signed 2's compliment integer. Range from -2^31 -> 2^31 - 1.
+    Integer = auto()
+    # 32-bit floating point. Holds up to 7 decimal digits.
+    Float = auto()
+    # 64-bit floating point number. Holds up to 16 decimal digits. Use when needing more precision than the Float.
+    Double = auto()
+    # 64-bit signed 2's compliment integer. Use when Integer is not large enough to hold the value.
+    Long = auto()
+    # 16-bit signed 2's compliment integer. Use when large values are not expected and you want to minimize payload size.
+    Short = auto()
+    # Used for storing very large integers that are outside the limit of Integer and Long data types.
+    BigInteger = auto()
+    # Used for storing very large floating point numbers that are outside the limit of Float and Double.
+    BigDecimal = auto()
+    # Array of bytes (8-bit signed integer). Used for storing arbitrary data in binary format.
+    ByteArray = auto()
+    # Boolean data type used for storing logical values (true or false).
+    Boolean = auto()
+    # Date format used to store dates. Use for fields that contain dates (usually formatted as ISO-8601). Ex "yyyy-MM-dd".
+    # Only Date and DateTime fields can be selected for incremental pull configurations.
+    Date = auto()
+    # Date format used to store date with time commponent. Use for fields that contain date time (usually formatted as ISO-8601). Ex "yyyy-MM-dd'T'HH:mm:ss.SSS".
+    # Only Date and DateTime fields can be selected for incremental pull configurations.
+    DateTime = auto()
+    # Arbitrary JSON structured data type. Use when the field value consists of structured data.
+    Struct = auto()
+    # Structure containing (key, value) pairs. Both keys and values must be primitive data types (otherwise use Struct).
+    Map = auto()
+    # List structure containing elements. Elements must be primitives.
+    List = auto()
+}
+```
+
+* **dataTypeLabel** - If the underlying service uses a different label (than the above listed types) for the data type of this field, you may use this to override the label that is shown to the customer. This ensures the customer will always see the data type that is used by the underlying service. For example, a service may use Array as a data type which is the same as the List data type supported by AppFlow.
+
+* **label** - An optional string indicating the label of the field. If no value is provided, the identifier is displayed to the customers.
+
+* **description** - An optional string field indicating the description for the field. You can provide a description to give customers information about the field.
+
+* **defaultValue** - Specify the default value for a field that should be used in-case no value is specified in the record.
+
+* **constraints** - Optional parameter to specify the constraints for this field such as length, min/max values, etc... Refer to the FieldConstraints class to determine how to construct these constraints: https://github.com/awslabs/aws-appflow-custom-connector-java/blob/main/custom-connector-sdk/src/main/java/com/amazonaws/appflow/custom/connector/model/metadata/FieldConstraints.java
+
+* **readProperties** - Defines properties that are applied to the field when the connector is used as a SOURCE:
+  * **isRetrievable** - Boolean indicating if the field can be used in a search result or when retrieving objects. This is similar to the ability to SELECT fields to display in SQL queries. If false, the field cannot be retrieved when using this connector as a SOURCE.
+  * **isNullable** - Boolean indicating if the field can have a null value. If false and AppFlow encounters a null value during flow execution, the flow will fail because we don’t expect the source to have null.
+  * **isQueryable** - Boolean indicating if the field can be used in filter queries. This is similar to the ability to specify filters in the WHERE clause of SQL queries. Some services will not allow requests to contain certain fields as queryable and in such cases, this should be set to false.
+  * **isTimestampFieldForIncrementalQueries** - Boolean indicating if this field can be used for scheduled flows to pull incremental data from last successful execution time. This property indicates that the field contains timestamp values (either as Date or DateTime) which can be used by AppFlow to configure incremental data pulls. If no such field exists then scheduled flows cannot be configured to pull incremental data (all executions will result in a full data pull).
+
+
+* **writeProperties** - Defines properties that are applied to the field when the connector is used as a DESTINATION:
+  * **isCreateable, isUpdateable, isUpsertable** - Boolean properties indicating whether the field can be created or updated in the destination when doing WRITE operations like CREATE/UPDATE/UPSERT.
+  * **isDefaultedOnCreate** - Boolean indicating if the field should use the default value while creating the record if not provided. Otherwise, null will be used if field is nullable.
+  * **isNullable** - Boolean indicating if the field can have a null value when doing write operations. If false and the record being written contains null, then the flow will fail because the field value cannot be set to null.
+  * **supportedWriteOperations** - List of write operations (CREATE/UPDATE/UPSERT) supported by this field. This field can only be used as a destination field when the flow destination is configured for a supported write operation.
+
+
+* **customProperties** - Key, Value map that contains extra properties of the field that are not listed above.
+
+* **[filterOperators](https://github.com/awslabs/aws-appflow-custom-connector-java/blob/main/custom-connector-sdk/src/main/java/com/amazonaws/appflow/custom/connector/model/metadata/FieldDefinition.java#L128)** - This method by default provides the filter operators that are possible for this field depending on the datatype. This is used by AppFlow to determine whether a field can be used to filter and which types of filtering is supported. The connector developer may also override this method if some dataTypes need to be allowed/disallowed for certain filter operations. 
+For example, override this method if you don’t want to support CONTAINS filter operation on List dataTypes. AppFlow will then NOT send filter expression with CONTAINS for this field to your connector.
+
 
 ## SDK Interfaces
 
