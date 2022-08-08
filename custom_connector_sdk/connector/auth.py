@@ -205,7 +205,7 @@ class OAuth2Defaults:
                  o_auth_2_grant_types_supported: List[OAuth2GrantType],
                  o_auth_scopes: List[str] = None,
                  o_auth_2_custom_parameters: List[Oauth2CustomParameter] = None,
-				 add_basic_auth_header: bool,
+                 add_basic_auth_header: bool,
                  o_auth_2_content_type: OAuth2ContentType = OAuth2ContentType.URL_ENCODED,
                  o_auth_2_method_type: OAuth2MethodType = OAuth2MethodType.HTTP_POST):
         # OAuth Scopes.
@@ -237,8 +237,8 @@ class OAuth2Defaults:
         # Connector developer doesn't have to define clientId and scope as OAuth2Custom Parameter for AUTH_URL.
         self.o_auth_2_custom_parameters = o_auth_2_custom_parameters
 		
-		# Specifies if clientId and clientSecret should be added to basic auth header
-		self.add_basic_auth_header = add_basic_auth_header
+        # Specifies if clientId and clientSecret should be added to basic auth header
+        self.add_basic_auth_header = add_basic_auth_header
 
         # OAuth2 content type used for login requests. URL_ENCODED or APPLICATION_JSON.
         # Default: URL_ENCODED
@@ -255,7 +255,7 @@ class OAuth2Defaults:
                 O_AUTH_2_GRANT_TYPES_SUPPORTED: [grant_type.name for grant_type in self.o_auth_2_grant_types_supported],
                 O_AUTH_SCOPES: self.o_auth_scopes,
                 O_AUTH_2_CUSTOM_PROPERTIES: self.o_auth_2_custom_parameters and [param.to_dict() for param in self.o_auth_2_custom_parameters],
-				ADD_BASIC_AUTH_HEADER: self.add_basic_auth_header and [param.to_dict() for param in self.add_basic_auth_header],
+                ADD_BASIC_AUTH_HEADER: self.add_basic_auth_header and [param.to_dict() for param in self.add_basic_auth_header],
                 O_AUTH_2_CONTENT_TYPE: self.o_auth_2_content_type.name,
                 O_AUTH_2_METHOD_TYPE: self.o_auth_2_method_type.name}
 
