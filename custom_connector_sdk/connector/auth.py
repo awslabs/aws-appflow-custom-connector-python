@@ -205,7 +205,7 @@ class OAuth2Defaults:
                  o_auth_2_grant_types_supported: List[OAuth2GrantType],
                  o_auth_scopes: List[str] = None,
                  o_auth_2_custom_parameters: List[Oauth2CustomParameter] = None,
-                 add_basic_auth_header: bool,
+                 add_basic_auth_header: bool = False,
                  o_auth_2_content_type: OAuth2ContentType = OAuth2ContentType.URL_ENCODED,
                  o_auth_2_method_type: OAuth2MethodType = OAuth2MethodType.HTTP_POST):
         # OAuth Scopes.

@@ -54,7 +54,7 @@ PACKAGE_NAME=$4
 echo "Using Package Name $PACKAGE_NAME"
 
 rm -rf ../../"$PACKAGE_NAME"
-pip install --target ../../"$PACKAGE_NAME"/python -r ../requirements.txt
+pip3 install --target ../../"$PACKAGE_NAME"/python -r ../requirements.txt
 
 aws --region $AWS_REGION cloudformation package --template-file template.yml --s3-bucket "$BUCKET_NAME" --output-template-file out.yml
 aws --region $AWS_REGION cloudformation deploy --template-file out.yml --stack-name "$STACK_NAME" --capabilities CAPABILITY_NAMED_IAM
