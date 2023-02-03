@@ -1,4 +1,4 @@
-# Generated from CustomConnectorQueryFilterParser.g4 by ANTLR 4.9.2
+# Generated from grammar/CustomConnectorQueryFilterParser.g4 by ANTLR 4.9.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .CustomConnectorQueryFilterParser import CustomConnectorQueryFilterParser
@@ -56,6 +56,11 @@ class CustomConnectorQueryFilterParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by CustomConnectorQueryFilterParser#oRBinaryExpression.
     def visitORBinaryExpression(self, ctx:CustomConnectorQueryFilterParser.ORBinaryExpressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
+    def visitLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
         return self.visitChildren(ctx)
 
 
@@ -164,6 +169,11 @@ class CustomConnectorQueryFilterParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by CustomConnectorQueryFilterParser#limit.
+    def visitLimit(self, ctx:CustomConnectorQueryFilterParser.LimitContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by CustomConnectorQueryFilterParser#string.
     def visitString(self, ctx:CustomConnectorQueryFilterParser.StringContext):
         return self.visitChildren(ctx)
@@ -186,6 +196,11 @@ class CustomConnectorQueryFilterParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by CustomConnectorQueryFilterParser#isoDateTime.
     def visitIsoDateTime(self, ctx:CustomConnectorQueryFilterParser.IsoDateTimeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by CustomConnectorQueryFilterParser#countValueExpression.
+    def visitCountValueExpression(self, ctx:CustomConnectorQueryFilterParser.CountValueExpressionContext):
         return self.visitChildren(ctx)
 
 
