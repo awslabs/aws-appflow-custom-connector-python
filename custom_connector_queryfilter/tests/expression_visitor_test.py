@@ -127,7 +127,8 @@ class QueryFilterExpressionVisitorTest(unittest.TestCase):
             ('accountId in (100, 90, 70)', 4),
             ('date between 2021-04-20 and 2021-04-21', 3),
             ('date between 2021-04-20T12:30:45Z and 2021-04-20T15:45:49.234Z', 3),
-            ('(accountId > 100 and ((date < 2021-04-20T12:30:45Z and date > 2021-04-21T15:45:49.234Z) and accountId < 200))', 11)
+            ('(accountId > 100 and ((date < 2021-04-20T12:30:45Z and date > 2021-04-21T15:45:49.234Z) and ' +
+             'accountId < 200))', 11)
         ]
         for expression, count in cases:
             with self.subTest(expression=expression, count=count):
