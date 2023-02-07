@@ -1,4 +1,4 @@
-# Generated from CustomConnectorQueryFilterParser.g4 by ANTLR 4.9.2
+# Generated from grammar/CustomConnectorQueryFilterParser.g4 by ANTLR 4.9.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .CustomConnectorQueryFilterParser import CustomConnectorQueryFilterParser
@@ -95,6 +95,15 @@ class CustomConnectorQueryFilterParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by CustomConnectorQueryFilterParser#oRBinaryExpression.
     def exitORBinaryExpression(self, ctx:CustomConnectorQueryFilterParser.ORBinaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
+    def enterLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
+        pass
+
+    # Exit a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
+    def exitLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
         pass
 
 
@@ -287,6 +296,15 @@ class CustomConnectorQueryFilterParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by CustomConnectorQueryFilterParser#limit.
+    def enterLimit(self, ctx:CustomConnectorQueryFilterParser.LimitContext):
+        pass
+
+    # Exit a parse tree produced by CustomConnectorQueryFilterParser#limit.
+    def exitLimit(self, ctx:CustomConnectorQueryFilterParser.LimitContext):
+        pass
+
+
     # Enter a parse tree produced by CustomConnectorQueryFilterParser#string.
     def enterString(self, ctx:CustomConnectorQueryFilterParser.StringContext):
         pass
@@ -329,6 +347,15 @@ class CustomConnectorQueryFilterParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by CustomConnectorQueryFilterParser#isoDateTime.
     def exitIsoDateTime(self, ctx:CustomConnectorQueryFilterParser.IsoDateTimeContext):
+        pass
+
+
+    # Enter a parse tree produced by CustomConnectorQueryFilterParser#countValueExpression.
+    def enterCountValueExpression(self, ctx:CustomConnectorQueryFilterParser.CountValueExpressionContext):
+        pass
+
+    # Exit a parse tree produced by CustomConnectorQueryFilterParser#countValueExpression.
+    def exitCountValueExpression(self, ctx:CustomConnectorQueryFilterParser.CountValueExpressionContext):
         pass
 
 
