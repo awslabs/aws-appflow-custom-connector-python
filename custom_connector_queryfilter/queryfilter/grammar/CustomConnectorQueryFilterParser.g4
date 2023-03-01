@@ -5,11 +5,16 @@ options  { tokenVocab=CustomConnectorQueryFilterLexer; }
 // 'queryfilter' is the root node for the filter expression
 queryfilter
 : expression EOF
+| limitexpression EOF
+;
+
+limitexpression
+: op=limit right=count                              #limitExpression
+| left=expression op=limit right=count              #limitExpression  // SQL 'LIMIT xyz' operator
 ;
 
 expression
 : LPAREN expression RPAREN                       #parenExpression  // supports parenthesis expressions
-| left=expression op=limit right=count           #limitExpression  // SQL 'LIMIT xyz' operator
 // logical operators support
 | NOT expression                                 #notExpression
 | left=expression op=andBinary right=expression     #aNDBinaryExpression
@@ -93,5 +98,5 @@ value
 ;
 
 count
-: POS_INTEGER # countValueExpression
+: POS_INTEGER #countValueExpression
 ;

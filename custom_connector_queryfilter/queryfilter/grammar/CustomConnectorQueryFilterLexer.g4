@@ -23,7 +23,7 @@ LIMIT      : 'LIMIT' | 'limit';
 COMMA      : ',';
 
 // represents identifier string in filter expression.
-IDENTIFIER : [a-zA-Z][A-Za-z0-9_]*;
+IDENTIFIER : [a-zA-Z][A-Za-z0-9_.-]*;
 
 // represents a positive non-zero integer
 POS_INTEGER: [1-9][0-9]+

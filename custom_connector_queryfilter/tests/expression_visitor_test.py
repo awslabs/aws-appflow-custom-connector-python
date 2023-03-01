@@ -110,6 +110,7 @@ class QueryFilterExpressionVisitorTest(unittest.TestCase):
             ('os = "mojave"', 2),
             ('os != "mojave"', 2),
             ('accountId > 90', 2),
+            ('LIMIT 100', 2),
             ('dateRange BETWEEN 1611639470000 AND 1611639476298', 3),
             ('date BETWEEN 1511630000000 AND 1611639476298', 3),
             ('time between 1511630000000 AND 1611639476298', 3),

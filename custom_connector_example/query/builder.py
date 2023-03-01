@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 from custom_connector_sdk.connector.fields import FieldDataType
 from custom_connector_sdk.connector.context import EntityDefinition
@@ -11,6 +11,8 @@ CLAUSE_STRING_FORMAT = '{} {}'
 WHERE_CLAUSE = 'where'
 FROM_CLAUSE = 'from'
 SELECT_CLAUSE = 'select'
+LIMIT_CLAUSE = 'limit'
+
 
 class QueryObject:
     """Stores parameters to be built into a Salesforce query."""
@@ -20,7 +22,7 @@ class QueryObject:
                  filter_expression: str = None,
                  id_field_name: str = None,
                  fields: List[str] = None,
-                 data_type: List[str] = None,
+                 data_type: str = None,
                  entity_definition: EntityDefinition = None):
         self.s_object = s_object
         self.selected_field_names = selected_field_names
@@ -29,6 +31,7 @@ class QueryObject:
         self.fields = fields
         self.data_type = data_type
         self.entity_definition = entity_definition
+
 
 def build_query(query_object: QueryObject) -> str:
     """Build Salesforce specific query given a QueryObject."""
@@ -44,9 +47,11 @@ def build_query(query_object: QueryObject) -> str:
 
     # QueryData allows data filtering based on filter expression.
     if query_object.filter_expression:
-        where_clause = translate_filter_expression(query_object.filter_expression, query_object.entity_definition)
+        where_clause, limit_clause = translate_filter_expression(query_object.filter_expression, query_object.entity_definition)
         if where_clause:
             clauses.append(CLAUSE_STRING_FORMAT.format(WHERE_CLAUSE, where_clause))
+        if limit_clause:
+            clauses.append(CLAUSE_STRING_FORMAT.format(LIMIT_CLAUSE, limit_clause))
     # RetrieveData allows data filtering based on entity primary ID fields
     elif query_object.id_field_name and query_object.fields and query_object.data_type:
         conditions = add_or_conditions('=',
@@ -59,6 +64,7 @@ def build_query(query_object: QueryObject) -> str:
             clauses.append(CLAUSE_STRING_FORMAT.format(WHERE_CLAUSE, where_clause))
 
     return ' '.join(clauses)
+
 
 def add_or_conditions(operator: str,
                       conditions: List[str],
@@ -74,15 +80,17 @@ def add_or_conditions(operator: str,
     conditions.append(condition)
     return conditions
 
+
 def add_condition(operator: str,
                   conditions: List[str],
                   field_name: str,
                   value: str,
-                  value_type: str) -> str:
+                  value_type: str) -> List[str]:
     """Builds an individual condition."""
     value = format_quotes(value_type, value)
     conditions.append(CONDITION_FORMAT.format(field_name, operator, value))
     return conditions
+
 
 def format_quotes(value_type: str, value: str) -> str:
     """Escapes customer-added quotes, and changes/adds outer quotes as single quotes."""
@@ -98,11 +106,12 @@ def format_quotes(value_type: str, value: str) -> str:
         return "'" + value + "'"
     return value
 
-def translate_filter_expression(filter_expression: str, entity_definition: EntityDefinition) -> str:
+
+def translate_filter_expression(filter_expression: str, entity_definition: EntityDefinition) -> Tuple[str, str]:
     """Converts filter expression to Salesforce specific expression using FilterExpressionVisitor."""
     if filter_expression:
         parse_tree = parse(filter_expression)
         filter_expression_visitor = SalesforceQueryFilterExpressionVisitor(entity_definition)
         filter_expression_visitor.visit(parse_tree)
         return filter_expression_visitor.get_result()
-    return ''
+    return '', ''

@@ -16,6 +16,7 @@ class CustomConnectorParseTreeTest(unittest.TestCase):
             'os = "mojave"',
             'os != "mojave"',
             "accountId > 90",
+            "LIMIT 100",
             "dateRange BETWEEN 1611639470000 AND 1611639476298",
             "date BETWEEN 1511630000000 AND 1611639476298",
             "time between 1511630000000 AND 1611639476298",
@@ -49,6 +50,7 @@ class CustomConnectorParseTreeTest(unittest.TestCase):
         expressions = [
             'os == "mojave"',
             'os <> "mojave"',
+            "LIMIT 100 LIMIT 100",
             "accountId => 90",
             "accountId => 90 LIMIT",
             "accountId => 90 LIMIT 0",

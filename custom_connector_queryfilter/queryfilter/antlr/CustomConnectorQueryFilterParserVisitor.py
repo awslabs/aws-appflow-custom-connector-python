@@ -1,4 +1,4 @@
-# Generated from grammar/CustomConnectorQueryFilterParser.g4 by ANTLR 4.9.2
+# Generated from CustomConnectorQueryFilterParser.g4 by ANTLR 4.9.3
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .CustomConnectorQueryFilterParser import CustomConnectorQueryFilterParser
@@ -11,6 +11,11 @@ class CustomConnectorQueryFilterParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by CustomConnectorQueryFilterParser#queryfilter.
     def visitQueryfilter(self, ctx:CustomConnectorQueryFilterParser.QueryfilterContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
+    def visitLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
         return self.visitChildren(ctx)
 
 
@@ -56,11 +61,6 @@ class CustomConnectorQueryFilterParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by CustomConnectorQueryFilterParser#oRBinaryExpression.
     def visitORBinaryExpression(self, ctx:CustomConnectorQueryFilterParser.ORBinaryExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
-    def visitLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
         return self.visitChildren(ctx)
 
 
