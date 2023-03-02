@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='custom_connector_sdk',
-      version='1.0.4',
+      version='1.0.5',
       description='Amazon AppFlow Custom Connector SDK',
       url='https://github.com/awslabs/aws-appflow-custom-connector-python',
       author='Amazon AppFlow',
