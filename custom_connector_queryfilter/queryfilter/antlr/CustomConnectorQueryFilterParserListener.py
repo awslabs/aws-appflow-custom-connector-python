@@ -1,4 +1,4 @@
-# Generated from grammar/CustomConnectorQueryFilterParser.g4 by ANTLR 4.9.2
+# Generated from CustomConnectorQueryFilterParser.g4 by ANTLR 4.9.3
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .CustomConnectorQueryFilterParser import CustomConnectorQueryFilterParser
@@ -14,6 +14,15 @@ class CustomConnectorQueryFilterParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by CustomConnectorQueryFilterParser#queryfilter.
     def exitQueryfilter(self, ctx:CustomConnectorQueryFilterParser.QueryfilterContext):
+        pass
+
+
+    # Enter a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
+    def enterLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
+        pass
+
+    # Exit a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
+    def exitLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
         pass
 
 
@@ -95,15 +104,6 @@ class CustomConnectorQueryFilterParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by CustomConnectorQueryFilterParser#oRBinaryExpression.
     def exitORBinaryExpression(self, ctx:CustomConnectorQueryFilterParser.ORBinaryExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
-    def enterLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
-        pass
-
-    # Exit a parse tree produced by CustomConnectorQueryFilterParser#limitExpression.
-    def exitLimitExpression(self, ctx:CustomConnectorQueryFilterParser.LimitExpressionContext):
         pass
 
 

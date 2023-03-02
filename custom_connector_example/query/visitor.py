@@ -1,9 +1,9 @@
 import dateutil.parser
 import datetime
 from io import StringIO
+from typing import Optional, Tuple
 from custom_connector_queryfilter.queryfilter.antlr.CustomConnectorQueryFilterParserVisitor import CustomConnectorQueryFilterParserVisitor
 from custom_connector_queryfilter.queryfilter.antlr.CustomConnectorQueryFilterParser import CustomConnectorQueryFilterParser
-from custom_connector_queryfilter.queryfilter.errors import InvalidFilterExpressionError
 from custom_connector_sdk.connector.context import EntityDefinition
 from custom_connector_sdk.connector.fields import FieldDefinition
 
@@ -19,6 +19,10 @@ LIKE = 'LIKE'
 LOGICAL_AND = ' and '
 COMPARISON_LESSER = '<'
 COMPARISON_GREATER = '>'
+IN = 'IN'
+LEFT_PARENTHESIS = '('
+RIGHT_PARENTHESIS = ')'
+
 
 def salesforce_datetime_format(date_time: datetime.datetime):
     date_time_string = date_time.strftime('%Y-%m-%dT%H:%M:%S')
@@ -30,7 +34,8 @@ def salesforce_datetime_format(date_time: datetime.datetime):
 
     return date_time_string
 
-def format_value(value: str, data_type: str, operator: str) -> str:
+
+def format_value(value: str, data_type: str, operator: Optional[str]) -> str:
     has_custom_quotes = len(value) >= 2 and ((value.startswith("'") and value.endswith("'")) or
                                              (value.startswith('"') and value.endswith('"')))
     if has_custom_quotes:
@@ -45,9 +50,10 @@ def format_value(value: str, data_type: str, operator: str) -> str:
 
     elif data_type in STRING_TYPES or (has_custom_quotes and data_type not in NON_STRING_TYPES):
         # Add wildcards (if applicable) and single quotes
-        value = f"'%{value}%'" if operator.upper() == CONTAINS and '%' not in value else f"'{value}'"
+        value = f"'%{value}%'" if operator and operator.upper() == CONTAINS and '%' not in value else f"'{value}'"
 
     return value
+
 
 class SalesforceQueryFilterExpressionVisitor(CustomConnectorQueryFilterParserVisitor):
     """This class is responsible for converting filter expression into Salesforce specific filter query. Filter
@@ -59,6 +65,7 @@ class SalesforceQueryFilterExpressionVisitor(CustomConnectorQueryFilterParserVis
         assert entity_definition, "entity definition can't be null, as it is required for building filter query"
         self.entity_definition = entity_definition
         self.query_builder = StringIO()
+        self.limit_builder = StringIO()
 
     def visitBetweenExpression(self, ctx: CustomConnectorQueryFilterParser.BetweenExpressionContext):
         if ctx.getChildCount() == 5:
@@ -73,14 +80,19 @@ class SalesforceQueryFilterExpressionVisitor(CustomConnectorQueryFilterParserVis
             upper_bound_comparison = CONDITION_FORMAT.format(identifier,
                                                              COMPARISON_LESSER,
                                                              format_value(upper_bound, data_type, COMPARISON_LESSER))
-            self.query_builder.write(lower_bound_comparison + LOGICAL_AND + upper_bound_comparison)
+            self.query_builder.write(lower_bound_comparison + LOGICAL_AND + upper_bound_comparison + SPACE)
             return self.query_builder.getvalue()
 
         return self.visitChildren(ctx)
 
     def visitInExpression(self, ctx: CustomConnectorQueryFilterParser.InExpressionContext):
-        # The IN operator is supported but has not yet been implemented in this example. It will be implemented soon.
-        raise InvalidFilterExpressionError('IN operator is yet to be implemented for this example.')
+        if len(ctx.value()) > 0:
+            identifier = ctx.getChild(0).getText()
+            data_type = self.get_field_data_type(identifier).data_type.name
+            values = ','.join([format_value(value.getText(), data_type, None) for value in ctx.value()])
+            self.query_builder.write(identifier + SPACE + IN + SPACE + LEFT_PARENTHESIS + values + RIGHT_PARENTHESIS + SPACE)
+            return self.query_builder.getvalue()
+        return self.visitChildren(ctx)
 
     def visitGreaterThanEqualToComparatorExpression(self, ctx: CustomConnectorQueryFilterParser
                                                     .GreaterThanEqualToComparatorExpressionContext):
@@ -172,16 +184,20 @@ class SalesforceQueryFilterExpressionVisitor(CustomConnectorQueryFilterParserVis
         return self.visitChildren(ctx)
 
     def visitIsoDate(self, ctx: CustomConnectorQueryFilterParser.IsoDateContext):
-        self.query_builder.write(ctx.getText())
-        return self.query_builder.getvalue()
+        self.query_builder.write(ctx.getText() + SPACE)
+        return self.visitChildren(ctx)
 
     def visitIsoDateTime(self, ctx: CustomConnectorQueryFilterParser.IsoDateTimeContext):
-        self.query_builder.write(salesforce_datetime_format(dateutil.parser.parse(ctx.getText())))
-        return self.query_builder.getvalue()
+        self.query_builder.write(salesforce_datetime_format(dateutil.parser.parse(ctx.getText())) + SPACE)
+        return self.visitChildren(ctx)
 
-    def get_result(self):
+    def visitCountValueExpression(self, ctx:CustomConnectorQueryFilterParser.CountValueExpressionContext):
+        self.limit_builder.write(ctx.getText() + SPACE)
+        return self.visitChildren(ctx)
+
+    def get_result(self) -> Tuple[str, str]:
         """Returns the final query expression built for Salesforce."""
-        return self.query_builder.getvalue()
+        return self.query_builder.getvalue().rstrip(), self.limit_builder.getvalue().rstrip()
 
     def get_field_data_type(self, field_name: str) -> FieldDefinition:
         """Find FieldDefinition for given field name. This definition contains datatype supported by field and other
