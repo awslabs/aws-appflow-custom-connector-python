@@ -302,7 +302,7 @@ class AuthenticationType(Enum):
     """Enum of Authentication Types"""
 
     # Basic Authentication credentials.
-    BasicAuth = auto
+    BasicAuth = auto()
     # Custom Authentication credentials.
     CustomAuth = auto()
     # OAuth2 Authentication credentials.
