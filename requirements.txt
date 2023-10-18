@@ -1,7 +1,7 @@
 antlr4-python3-runtime==4.9.2
 python-dateutil==2.8.2
 six==1.16.0
-urllib3==1.26.6
+urllib3==1.26.18
 awslambdaric==1.2.2
 setuptools~=65.6.3
 boto3~=1.20.47
